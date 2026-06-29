@@ -3,342 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niiveshneeti | SEBI Registered Research Analyst</title>
+    <title>Niiveshneeti | Invest with Neeti, Grow with Clarity</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
 
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-
-        .animate-on-scroll { opacity: 0; transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
-        .fade-in-up { transform: translateY(40px); }
-        .slide-in-left { transform: translateX(-50px); }
-        .slide-in-right { transform: translateX(50px); }
-        .is-visible { opacity: 1; transform: translate(0, 0) !important; }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(148, 163, 184, 0.3);
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+        :root {
+            --color-bg: #f7f6f2;
+            --color-surface: #ffffff;
+            --color-border: #e2e0da;
+            --color-text: #1a1a1a;
+            --color-text-muted: #6b7280;
+            --color-primary: #059669;
+            --color-primary-light: #d1fae5;
+            --color-blue: #1d4ed8;
+            --color-blue-light: #dbeafe;
+            --color-amber: #d97706;
+            --font-body: 'Satoshi', system-ui, sans-serif;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.07);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.10);
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--color-bg); color: var(--color-text); overflow-x: hidden; line-height: 1.6; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #e5e7eb; }
+        ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 3px; }
+
+        /* Scroll Animations */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.from-left { transform: translateX(-40px); }
+        .reveal.from-right { transform: translateX(40px); }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* Gradient Text */
         .text-gradient {
             background: linear-gradient(135deg, #1d4ed8 0%, #059669 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Hero Chat Simulation */
-        .chat-container {
-            position: relative;
-            width: 100%;
-            max-width: 380px;
-            height: 460px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.12);
-            border: 1px solid #e2e8f0;
+        /* Cards */
+        .card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* =============================================
+           WHATSAPP CHAT ANIMATION
+           ============================================= */
+        .chat-phone {
+            width: 320px;
+            height: 560px;
+            background: #fff;
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.14), 0 4px 16px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.08);
             overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
             margin: 0 auto;
         }
 
         .chat-header {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-            padding: 16px;
+            background: linear-gradient(135deg, #075e54 0%, #128c7e 100%);
+            padding: 14px 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .chat-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
+            font-size: 16px;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,255,255,0.3);
         }
 
         .chat-body {
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: #f0fdf4;
-            height: calc(100% - 64px);
+            flex: 1;
             overflow: hidden;
-        }
-
-        .msg-bubble {
-            max-width: 85%;
-            padding: 12px 14px;
-            border-radius: 14px;
-            font-size: 13px;
-            line-height: 1.5;
-            opacity: 0;
-            transform: translateY(16px) scale(0.96);
-            animation: msgPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            background: #f0fdf4;
             position: relative;
         }
 
-        .msg-in {
-            background: white;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-            color: #1e293b;
+        /* Scrollable inner container */
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 14px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .chat-input-bar {
+            background: #f0f0f0;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input-fake {
+            flex: 1;
+            background: #fff;
+            border-radius: 24px;
+            padding: 8px 14px;
+            font-size: 13px;
+            color: #9ca3af;
             border: 1px solid #e2e8f0;
         }
 
-        .msg-out {
-            background: linear-gradient(135deg, #dcf8c6 0%, #d1f4d1 100%);
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-            color: #1e293b;
-            border: 1px solid #bbf7d0;
+        /* Message Bubbles */
+        .msg {
+            max-width: 88%;
+            border-radius: 14px;
+            font-size: 12.5px;
+            line-height: 1.5;
+            position: relative;
+            opacity: 0;
+            transform: translateY(12px) scale(0.97);
+            transition: opacity 0.4s cubic-bezier(0.34,1.56,0.64,1), transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            will-change: opacity, transform;
         }
 
-        .typing {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            padding: 14px 16px;
-            background: white;
+        .msg.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .msg-in {
+            background: #fff;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            padding: 11px 13px;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        .msg-out {
+            background: linear-gradient(135deg, #d4f9e8 0%, #c8f2dd 100%);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            padding: 11px 13px;
+            color: #1e293b;
+            border: 1px solid #a7f3d0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Typing indicator */
+        .typing-bubble {
+            background: #fff;
             border-radius: 14px;
             border-bottom-left-radius: 4px;
+            padding: 12px 16px;
             align-self: flex-start;
-            width: fit-content;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
             opacity: 0;
-            animation: msgPop 0.4s ease forwards;
-            animation-delay: 1.2s;
+            transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
+
+        .typing-bubble.visible { opacity: 1; transform: none; }
 
         .typing-dot {
             width: 7px;
             height: 7px;
             background: #94a3b8;
             border-radius: 50%;
-            animation: typingBounce 1.4s infinite ease-in-out both;
+            animation: typeBounce 1.4s ease-in-out infinite;
         }
-        .typing-dot:nth-child(1) { animation-delay: 0s; }
         .typing-dot:nth-child(2) { animation-delay: 0.2s; }
         .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
-        .msg-meta {
+        @keyframes typeBounce {
+            0%,80%,100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Msg meta */
+        .msg-time {
             font-size: 10px;
             color: #94a3b8;
-            margin-top: 4px;
+            margin-top: 5px;
             text-align: right;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            gap: 4px;
+            gap: 3px;
         }
 
-        .badge-icon {
-            display: inline-flex;
+        .trade-row {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            font-size: 10px;
-            margin-right: 4px;
+            padding: 2px 0;
+            font-size: 12px;
         }
 
-        @keyframes msgPop {
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes typingBounce {
-            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 0.6; }
-            100% { transform: scale(1.6); opacity: 0; }
-        }
-
-        .float-anim { animation: float 6s ease-in-out infinite; }
-
-        .delay-1 { animation-delay: 2.5s; }
-        .delay-2 { animation-delay: 5.5s; }
-        .delay-3 { animation-delay: 8.5s; }
-        .delay-4 { animation-delay: 11s; }
-
-        .status-badge {
+        .trade-badge {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: 20px;
             font-size: 11px;
-            font-weight: 600;
-            margin-top: 6px;
+            font-weight: 700;
+            margin-top: 7px;
         }
 
-        .status-hit {
-            background: #dcfce7;
-            color: #166534;
+        .badge-live { background: #dbeafe; color: #1e40af; }
+        .badge-t1 { background: #dcfce7; color: #166534; }
+        .badge-t2 { background: #fef9c3; color: #854d0e; }
+        .badge-sl { background: #fee2e2; color: #991b1b; }
+
+        /* Float the phone */
+        @keyframes phoneFloat {
+            0%,100% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        .phone-float { animation: phoneFloat 7s ease-in-out infinite; }
+
+        /* Glow ring behind phone */
+        .phone-glow {
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(5,150,105,0.12) 0%, transparent 70%);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .status-sl {
-            background: #fee2e2;
-            color: #991b1b;
+        /* Pulse dot */
+        @keyframes pulseDot {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            position: relative;
+        }
+        .live-dot::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulseDot 1.6s ease-out infinite;
         }
 
-        .status-open {
-            background: #dbeafe;
-            color: #1e40af;
+        /* Stat pills on side */
+        .stat-pill {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.07);
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #1e293b;
+            white-space: nowrap;
+            z-index: 10;
         }
 
-        .ticker-card {
-            transition: all 0.3s ease;
+        @keyframes pillFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
-        .ticker-card:hover {
+
+        .pill-1 { animation: pillFloat 5s ease-in-out infinite; }
+        .pill-2 { animation: pillFloat 6s ease-in-out infinite 1s; }
+        .pill-3 { animation: pillFloat 4.5s ease-in-out infinite 0.5s; }
+
+        /* Section alternating bg */
+        .section-alt { background: #f1f5f9; }
+
+        /* Service card hover */
+        .service-card {
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.10);
+        }
+
+        /* Pricing highlight */
+        .pricing-gold {
+            background: linear-gradient(160deg, #ecfdf5 0%, #f0f9ff 100%);
+            border: 2px solid #059669;
+        }
+
+        /* Testimonial */
+        .testimonial-card {
+            transition: transform 0.25s ease;
+        }
+        .testimonial-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
         }
+
+        /* Scroll reveal delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans overflow-x-hidden">
+<body>
 
-    <!-- Navigation -->
-    <header class="border-b border-slate-200 bg-white/90 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <!-- NAV -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between" style="height:72px;">
             <a href="index.html" class="flex items-center gap-2">
-                <img src="niiveshlogo.png" alt="Niiveshneeti Logo" class="h-10" onerror="this.src='https://via.placeholder.com/150x40/f8fafc/0f172a?text=NIIVESHNEETI'">
+                <img src="niiveshlogo.png" alt="Niiveshneeti Logo" class="h-10" onerror="this.src='https://via.placeholder.com/160x40/f8fafc/0f172a?text=NIIVESHNEETI'">
             </a>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-700">
-                <a href="#pricing" class="hover:text-blue-600 transition-colors">Index Options Packages</a>
-                <a href="agreement.html" class="hover:text-blue-600 transition-colors">User Consent</a>
-                <a href="#contact" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-lg shadow-md shadow-emerald-200 transition-all">Contact Us</a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-700">
+                <a href="#pricing" class="hover:text-emerald-700 transition-colors">Index Options Packages</a>
+                <a href="agreement.html" class="hover:text-emerald-700 transition-colors">User Consent</a>
+                <a href="#contact" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl shadow-md transition-all hover:-translate-y-0.5">Contact Us</a>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative pt-16 pb-24 overflow-hidden">
+    <!-- HERO -->
+    <section class="relative overflow-hidden pt-14 pb-24">
         <div class="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-emerald-50"></div>
-        <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-emerald-100 rounded-full blur-[120px] opacity-60"></div>
-        <div class="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-blue-100 rounded-full blur-[100px] opacity-50"></div>
+        <div class="absolute -top-40 -right-20 w-[500px] h-[500px] bg-emerald-100/70 rounded-full blur-[120px]"></div>
+        <div class="absolute -bottom-40 -left-20 w-[400px] h-[400px] bg-blue-100/60 rounded-full blur-[100px]"></div>
 
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <!-- Left Content -->
-            <div class="animate-on-scroll slide-in-left">
-                <div class="inline-flex items-center gap-2 rounded-full bg-emerald-50 text-xs font-bold text-emerald-700 px-3 py-1.5 mb-5 ring-1 ring-emerald-100 border border-emerald-100">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center relative z-10">
+
+            <!-- Left -->
+            <div class="reveal from-left">
+                <div class="inline-flex items-center gap-2 rounded-full bg-emerald-50 text-xs font-bold text-emerald-800 px-4 py-2 mb-5 border border-emerald-100">
                     <i class="fa-solid fa-shield-halved"></i>
                     SEBI Registered Research Analyst • India
                 </div>
-                <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight mb-6">
-                    Invest with <span class="text-emerald-600">Neeti</span> (Plan), <br>
+                <h1 style="font-size:clamp(2.1rem,5vw,3.6rem);font-weight:900;line-height:1.12;color:#0f172a;margin-bottom:1.25rem;">
+                    Invest with <span style="color:#059669;">Neeti</span> (Plan),<br>
                     <span class="text-gradient">Grow with Clarity.</span>
                 </h1>
-                <p class="text-lg text-slate-600 mb-6 leading-relaxed max-w-xl">
-                    Daily research-backed advisory delivered directly to your WhatsApp. 
-                    Get precise entry, target, and stop-loss levels for Nifty & BankNifty options—designed by a SEBI Registered Research Analyst.
+                <p style="font-size:1.05rem;color:#475569;line-height:1.75;max-width:500px;margin-bottom:1.5rem;">
+                    Daily, research-backed trade alerts delivered directly to your WhatsApp — precise entry, targets & stop-loss — by a SEBI Registered Research Analyst.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                    <div class="flex items-center gap-2 text-sm text-slate-700 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row gap-3 mb-8">
+                    <div class="flex items-center gap-2 text-sm text-slate-700 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
                         <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                        Handpicked equity & index option calls
+                        Handpicked Nifty & BankNifty calls
                     </div>
-                    <div class="flex items-center gap-2 text-sm text-slate-700 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm">
-                        <i class="fa-solid fa-bolt text-amber-500"></i>
-                        Real-time WhatsApp alerts during market hours
+                    <div class="flex items-center gap-2 text-sm text-slate-700 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+                        Live alerts on WhatsApp
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-4">
-                    <a href="#pricing" class="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500 text-white font-semibold py-3.5 px-8 rounded-xl shadow-xl shadow-emerald-200 transition-transform hover:-translate-y-1">
+                    <a href="#pricing" style="background:linear-gradient(135deg,#059669,#0891b2);color:#fff;font-weight:700;font-size:0.95rem;padding:14px 32px;border-radius:12px;text-decoration:none;box-shadow:0 8px 24px rgba(5,150,105,0.25);transition:transform 0.2s ease,box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 32px rgba(5,150,105,0.35)';" onmouseout="this.style.transform='';this.style.boxShadow='0 8px 24px rgba(5,150,105,0.25)';">
                         Start Investing with Neeti
                     </a>
-                    <a href="#services" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:text-blue-900 px-2">
-                        Explore Services
-                        <i class="fa-solid fa-arrow-right-long"></i>
+                    <a href="#services" style="display:inline-flex;align-items:center;gap:6px;font-size:0.9rem;font-weight:600;color:#1d4ed8;text-decoration:none;padding:14px 8px;transition:color 0.2s;" onmouseover="this.style.color='#1e40af';" onmouseout="this.style.color='#1d4ed8';">
+                        Explore Services <i class="fa-solid fa-arrow-right-long"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Right: WhatsApp Advisory Simulation -->
-            <div class="animate-on-scroll slide-in-right flex justify-center">
-                <div class="chat-container float-anim">
-                    <!-- Chat Header -->
-                    <div class="chat-header">
-                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm border border-white/30">
-                            <i class="fa-solid fa-user-tie text-white"></i>
+            <!-- Right — Live Chat Simulation -->
+            <div class="reveal from-right flex justify-center items-center" style="position:relative;min-height:560px;">
+                <!-- Glow -->
+                <div class="phone-glow"></div>
+
+                <!-- Floating stat pills -->
+                <div class="stat-pill pill-1" style="top:30px;right:-10px;">
+                    <div class="flex items-center gap-2">
+                        <span class="live-dot"></span>
+                        <div>
+                            <div style="font-weight:700;font-size:12px;">Live Advisory</div>
+                            <div style="font-size:10px;color:#6b7280;">During Market Hours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-pill pill-2" style="bottom:60px;right:-20px;">
+                    <div class="flex items-center gap-2">
+                        <div style="width:28px;height:28px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:13px;color:#059669;">
+                            <i class="fa-solid fa-trophy"></i>
                         </div>
                         <div>
-                            <p class="text-sm font-bold">Niiveshneeti Advisory</p>
-                            <p class="text-[10px] opacity-90 flex items-center gap-1">
-                                <span class="w-1.5 h-1.5 rounded-full bg-green-300 animate-pulse"></span>
-                                Online • SEBI Registered RA
-                            </p>
+                            <div style="font-weight:700;font-size:12px;color:#166534;">Targets Hit Daily</div>
+                            <div style="font-size:10px;color:#6b7280;">Track record matters</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-pill pill-3" style="bottom:160px;left:-14px;">
+                    <div class="flex items-center gap-2">
+                        <div style="width:28px;height:28px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:13px;color:#1d4ed8;">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight:700;font-size:12px;">SEBI Reg. RA</div>
+                            <div style="font-size:10px;color:#6b7280;">INH000016533</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="chat-phone phone-float" style="position:relative;z-index:5;">
+                    <!-- Header -->
+                    <div class="chat-header">
+                        <div class="chat-avatar"><i class="fa-solid fa-user-tie"></i></div>
+                        <div>
+                            <div style="font-weight:700;font-size:13px;color:#fff;">Niiveshneeti Advisory</div>
+                            <div style="font-size:10px;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:4px;">
+                                <div class="live-dot" style="width:6px;height:6px;background:#4ade80;border-radius:50%;position:relative;">
+                                    <span style="position:absolute;inset:0;border-radius:50%;background:#4ade80;animation:pulseDot 1.6s ease-out infinite;"></span>
+                                </div>
+                                Online · SEBI Registered RA
+                            </div>
+                        </div>
+                        <div style="margin-left:auto;display:flex;gap:12px;color:rgba(255,255,255,0.7);font-size:14px;">
+                            <i class="fa-solid fa-video"></i>
+                            <i class="fa-solid fa-phone"></i>
                         </div>
                     </div>
 
-                    <!-- Chat Body -->
-                    <div class="chat-body">
-                        <!-- Typing Indicator -->
-                        <div class="typing">
-                            <div class="typing-dot"></div>
-                            <div class="typing-dot"></div>
-                            <div class="typing-dot"></div>
-                        </div>
+                    <!-- Messages body -->
+                    <div class="chat-body" id="chatBody">
+                        <div class="chat-messages" id="chatMessages"></div>
+                    </div>
 
-                        <!-- Advisory Message -->
-                        <div class="msg-bubble msg-in delay-1">
-                            <div class="flex items-center gap-1 mb-1 text-[10px] font-bold text-emerald-700 uppercase tracking-wide">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> New Trade Alert
-                            </div>
-                            <p class="font-semibold text-slate-800">Nifty 24000 PE (Put)</p>
-                            <div class="mt-2 space-y-1 text-slate-700">
-                                <div class="flex justify-between"><span class="text-slate-500">Entry:</span> <span class="font-bold">112</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Target 1:</span> <span class="font-bold text-emerald-600">140</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Target 2:</span> <span class="font-bold text-emerald-600">165</span></div>
-                                <div class="flex justify-between"><span class="text-slate-500">Stop Loss:</span> <span class="font-bold text-red-500">100</span></div>
-                            </div>
-                            <div class="status-badge status-open">
-                                <i class="fa-solid fa-clock"></i> Trade Active
-                            </div>
-                            <div class="msg-meta">09:20 AM <i class="fa-solid fa-check-double text-blue-400 text-[10px]"></i></div>
-                        </div>
-
-                        <!-- Target 1 Achieved -->
-                        <div class="msg-bubble msg-out delay-2">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="badge-icon bg-emerald-500 text-white"><i class="fa-solid fa-check"></i></span>
-                                <span class="font-bold text-emerald-800 text-sm">Target 1 Achieved</span>
-                            </div>
-                            <p class="text-slate-700">Nifty 24000 PE hit <strong>140</strong>. Book partial profits or trail SL to cost.</p>
-                            <div class="status-badge status-hit">
-                                <i class="fa-solid fa-arrow-trend-up"></i> +25% from entry
-                            </div>
-                            <div class="msg-meta">10:45 AM <i class="fa-solid fa-check-double text-blue-500 text-[10px]"></i></div>
-                        </div>
-
-                        <!-- Target 2 Achieved -->
-                        <div class="msg-bubble msg-out delay-3">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="badge-icon bg-amber-500 text-white"><i class="fa-solid fa-trophy"></i></span>
-                                <span class="font-bold text-amber-800 text-sm">Target 2 Achieved</span>
-                            </div>
-                            <p class="text-slate-700">Nifty 24000 PE hit <strong>165</strong>. All targets done. Great trade!</p>
-                            <div class="status-badge status-hit">
-                                <i class="fa-solid fa-crown"></i> +47% from entry
-                            </div>
-                            <div class="msg-meta">11:30 AM <i class="fa-solid fa-check-double text-blue-500 text-[10px]"></i></div>
-                        </div>
-
-                        <!-- Final Note -->
-                        <div class="msg-bubble msg-in delay-4">
-                            <div class="flex items-center gap-1 mb-1 text-[10px] font-bold text-blue-700 uppercase tracking-wide">
-                                <i class="fa-solid fa-chart-simple"></i> Performance Update
-                            </div>
-                            <p class="text-slate-700">This is how we deliver clarity—every day, every trade. <strong>Join Niiveshneeti.</strong></p>
-                            <div class="msg-meta">11:32 AM</div>
+                    <!-- Input bar -->
+                    <div class="chat-input-bar">
+                        <div class="chat-input-fake">Message...</div>
+                        <div style="width:36px;height:36px;border-radius:50%;background:#059669;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;">
+                            <i class="fa-solid fa-microphone"></i>
                         </div>
                     </div>
                 </div>
@@ -346,336 +476,304 @@
         </div>
     </section>
 
-    <!-- Market Tickers -->
+    <!-- MARKET TICKERS -->
     <section class="py-8 bg-white border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="ticker-card glass-card p-6 rounded-xl animate-on-scroll fade-in-up delay-100 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="card p-5 reveal delay-1 flex items-center justify-between hover:bg-slate-50 transition-colors">
                 <div>
-                    <h3 class="text-slate-900 font-bold text-lg">Nifty 50</h3>
-                    <p class="text-xs text-slate-500">India's leading stock market index.</p>
+                    <div style="font-weight:700;font-size:1rem;color:#0f172a;">Nifty 50</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px;">India's leading stock market index</div>
                 </div>
-                <div class="text-emerald-600 font-black text-xl flex items-center gap-1">
-                    <i class="fa-solid fa-arrow-trend-up text-sm"></i> 24,850+
+                <div style="font-weight:900;font-size:1.2rem;color:#059669;display:flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-arrow-trend-up" style="font-size:13px;"></i> 24,850+
                 </div>
             </div>
-            <div class="ticker-card glass-card p-6 rounded-xl animate-on-scroll fade-in-up delay-200 flex items-center justify-between">
+            <div class="card p-5 reveal delay-2 flex items-center justify-between hover:bg-slate-50 transition-colors">
                 <div>
-                    <h3 class="text-slate-900 font-bold text-lg">Sensex</h3>
-                    <p class="text-xs text-slate-500">Tracks top performing Indian companies.</p>
+                    <div style="font-weight:700;font-size:1rem;color:#0f172a;">Sensex</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px;">Top performing Indian companies</div>
                 </div>
-                <div class="text-emerald-600 font-black text-xl flex items-center gap-1">
-                    <i class="fa-solid fa-arrow-trend-up text-sm"></i> 81,300+
+                <div style="font-weight:900;font-size:1.2rem;color:#059669;display:flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-arrow-trend-up" style="font-size:13px;"></i> 81,300+
                 </div>
             </div>
-            <div class="ticker-card glass-card p-6 rounded-xl animate-on-scroll fade-in-up delay-300 flex items-center justify-between">
+            <div class="card p-5 reveal delay-3 flex items-center justify-between hover:bg-slate-50 transition-colors">
                 <div>
-                    <h3 class="text-slate-900 font-bold text-lg">Bank Nifty</h3>
-                    <p class="text-xs text-slate-500">India's major banking sector index.</p>
+                    <div style="font-weight:700;font-size:1rem;color:#0f172a;">Bank Nifty</div>
+                    <div style="font-size:11px;color:#6b7280;margin-top:2px;">India's major banking sector index</div>
                 </div>
-                <div class="text-emerald-600 font-black text-xl flex items-center gap-1">
-                    <i class="fa-solid fa-arrow-trend-up text-sm"></i> 54,200+
+                <div style="font-weight:900;font-size:1.2rem;color:#059669;display:flex;align-items:center;gap:4px;">
+                    <i class="fa-solid fa-arrow-trend-up" style="font-size:13px;"></i> 54,200+
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- SERVICES -->
     <section id="services" class="py-24">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 animate-on-scroll fade-in-up">
-                <h2 class="text-emerald-600 font-bold tracking-widest uppercase text-sm mb-2">Our Services</h2>
-                <h3 class="text-3xl md:text-4xl font-black text-slate-900">Professional Stock Market Solutions</h3>
-                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">
-                    Expert advisory and investment services designed for Indian investors seeking clarity, structure, and discipline in markets.
-                </p>
+            <div class="text-center mb-14 reveal">
+                <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#059669;margin-bottom:8px;">Our Services</div>
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#0f172a;">Professional Stock Market Solutions</h2>
+                <p style="color:#6b7280;margin-top:12px;max-width:520px;margin-left:auto;margin-right:auto;font-size:0.95rem;">Expert advisory for Indian investors seeking clarity, structure, and discipline in markets.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-left border-t-4 border-t-blue-500 hover:-translate-y-2 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-4 text-xl">
-                        <i class="fa-solid fa-chart-pie"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-4">Stock Trading Insights</h4>
-                    <ul class="space-y-2 text-sm text-slate-700 mb-6">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Fundamentally strong, technically timed</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Handpicked stock recommendations</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Clear Buy, Hold, Sell calls</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Real-time updates & performance tracking</li>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                <div class="card service-card p-8 reveal from-left" style="border-top:4px solid #1d4ed8;">
+                    <div style="width:48px;height:48px;background:#dbeafe;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#1d4ed8;margin-bottom:16px;"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3 style="font-weight:800;font-size:1.1rem;color:#0f172a;margin-bottom:12px;">Stock Trading Insights</h3>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;font-size:0.875rem;color:#374151;margin-bottom:16px;">
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Fundamentally strong, technically timed</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Handpicked stock recommendations</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Clear Buy, Hold, Sell calls</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Real-time updates & performance tracking</li>
                     </ul>
-                    <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
-                        Whether you're a beginner or seasoned investor, our research helps you build long-term wealth.
-                    </p>
+                    <p style="font-size:11.5px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:12px;">Whether beginner or seasoned investor, our research helps you build long-term wealth.</p>
                 </div>
 
-                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-right border-t-4 border-t-purple-500 hover:-translate-y-2 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4 text-xl">
-                        <i class="fa-solid fa-bolt"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-4">Option Trading Strategies</h4>
-                    <ul class="space-y-2 text-sm text-slate-700 mb-6">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Trade smarter, not harder</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Intraday & positional option trade ideas</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Defined entry, stop-loss & target</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> NIFTY, BANKNIFTY focused strategies</li>
+                <div class="card service-card p-8 reveal from-right" style="border-top:4px solid #7c3aed;">
+                    <div style="width:48px;height:48px;background:#ede9fe;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#7c3aed;margin-bottom:16px;"><i class="fa-solid fa-bolt"></i></div>
+                    <h3 style="font-weight:800;font-size:1.1rem;color:#0f172a;margin-bottom:12px;">Option Trading Strategies</h3>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;font-size:0.875rem;color:#374151;margin-bottom:16px;">
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Trade smarter, not harder</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Intraday & positional option trade ideas</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Defined entry, stop-loss & target</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>NIFTY, BANKNIFTY focused strategies</li>
                     </ul>
-                    <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
-                        Maximize reward while keeping risks in check, with expert-led trading logic.
-                    </p>
+                    <p style="font-size:11.5px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:12px;">Maximize reward while keeping risks in check, with expert-led trading logic.</p>
                 </div>
 
-                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-left border-t-4 border-t-yellow-500 hover:-translate-y-2 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 mb-4 text-xl">
-                        <i class="fa-solid fa-coins"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-4">Commodity Market Calls</h4>
-                    <ul class="space-y-2 text-sm text-slate-700 mb-6">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Tap into MCX opportunities with precision</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Gold, Silver, Crude and Natural Gas</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Intraday and short-term setups</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Technical and sentiment-driven signals</li>
+                <div class="card service-card p-8 reveal from-left" style="border-top:4px solid #d97706;">
+                    <div style="width:48px;height:48px;background:#fef3c7;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#d97706;margin-bottom:16px;"><i class="fa-solid fa-coins"></i></div>
+                    <h3 style="font-weight:800;font-size:1.1rem;color:#0f172a;margin-bottom:12px;">Commodity Market Calls</h3>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;font-size:0.875rem;color:#374151;margin-bottom:16px;">
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Tap into MCX opportunities with precision</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Gold, Silver, Crude and Natural Gas</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Intraday and short-term setups</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Technical and sentiment-driven signals</li>
                     </ul>
-                    <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
-                        Stay updated on global cues and market momentum—act with clarity and confidence.
-                    </p>
+                    <p style="font-size:11.5px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:12px;">Stay updated on global cues and market momentum.</p>
                 </div>
 
-                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-right border-t-4 border-t-emerald-500 hover:-translate-y-2 transition-transform duration-300">
-                    <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-4 text-xl">
-                        <i class="fa-solid fa-seedling"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-4">Mutual Fund Recommendations</h4>
-                    <ul class="space-y-2 text-sm text-slate-700 mb-6">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Curated funds across Equity, Debt, Hybrid & Thematic</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Ratings, risk levels, and sector allocation explained</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Regular updates on what to buy, hold, or exit</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Simple, effective, and always goal-aligned</li>
+                <div class="card service-card p-8 reveal from-right" style="border-top:4px solid #059669;">
+                    <div style="width:48px;height:48px;background:#d1fae5;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#059669;margin-bottom:16px;"><i class="fa-solid fa-seedling"></i></div>
+                    <h3 style="font-weight:800;font-size:1.1rem;color:#0f172a;margin-bottom:12px;">Mutual Fund Recommendations</h3>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;font-size:0.875rem;color:#374151;margin-bottom:16px;">
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Curated funds across Equity, Debt, Hybrid & Thematic</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Ratings, risk levels, and sector allocation</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Regular updates: what to buy, hold, or exit</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Simple, effective, always goal-aligned</li>
                     </ul>
-                    <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
-                        SIP or lumpsum? We've got your portfolio covered.
-                    </p>
+                    <p style="font-size:11.5px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:12px;">SIP or lumpsum? We've got your portfolio covered.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="py-20 bg-slate-100">
+    <!-- WHY US -->
+    <section class="py-20 section-alt">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 animate-on-scroll fade-in-up">
-                <h3 class="text-3xl md:text-4xl font-black text-slate-900">Why Choose Us</h3>
-                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">
-                    SEBI Registered Research • Intraday & Expiry Strategies • Real-Time WhatsApp Support
-                </p>
+            <div class="text-center mb-14 reveal">
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#0f172a;">Why Choose Us</h2>
+                <p style="color:#6b7280;margin-top:10px;font-size:0.95rem;">SEBI Registered Research • Intraday & Expiry Strategies • Real-Time WhatsApp Support</p>
             </div>
-            
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div class="p-6 animate-on-scroll fade-in-up delay-100">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-blue-600 text-2xl shadow-sm">
+                <div class="p-6 reveal delay-1">
+                    <div style="width:60px;height:60px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:1px solid #e2e8f0;font-size:22px;color:#1d4ed8;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
                         <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h4 class="text-slate-900 font-bold mb-2">Built for Disciplined Traders</h4>
-                    <p class="text-xs text-slate-500">Structured, research-backed guidance for consistent trading.</p>
+                    <h4 style="font-weight:700;font-size:0.95rem;color:#0f172a;margin-bottom:6px;">Disciplined Approach</h4>
+                    <p style="font-size:12px;color:#6b7280;">Structured, research-backed guidance for consistent trading.</p>
                 </div>
-                <div class="p-6 animate-on-scroll fade-in-up delay-200">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-indigo-600 text-2xl shadow-sm">
+                <div class="p-6 reveal delay-2">
+                    <div style="width:60px;height:60px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:1px solid #e2e8f0;font-size:22px;color:#7c3aed;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
                         <i class="fa-solid fa-magnifying-glass-chart"></i>
                     </div>
-                    <h4 class="text-slate-900 font-bold mb-2">Research Based</h4>
-                    <p class="text-xs text-slate-500">Every trade setup backed by in-depth market research and technical analysis.</p>
+                    <h4 style="font-weight:700;font-size:0.95rem;color:#0f172a;margin-bottom:6px;">Research Based</h4>
+                    <p style="font-size:12px;color:#6b7280;">Every setup backed by deep market research and technical analysis.</p>
                 </div>
-                <div class="p-6 animate-on-scroll fade-in-up delay-300">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-emerald-600 text-2xl shadow-sm">
+                <div class="p-6 reveal delay-3">
+                    <div style="width:60px;height:60px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:1px solid #e2e8f0;font-size:22px;color:#059669;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
                         <i class="fa-solid fa-stopwatch"></i>
                     </div>
-                    <h4 class="text-slate-900 font-bold mb-2">Fast Execution</h4>
-                    <p class="text-xs text-slate-500">Real-time alerts with precise entry, target and stop-loss for quick action.</p>
+                    <h4 style="font-weight:700;font-size:0.95rem;color:#0f172a;margin-bottom:6px;">Fast Execution</h4>
+                    <p style="font-size:12px;color:#6b7280;">Real-time alerts with precise entry, target and stop-loss.</p>
                 </div>
-                <div class="p-6 animate-on-scroll fade-in-up delay-400">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 text-purple-600 text-2xl shadow-sm">
+                <div class="p-6 reveal delay-4">
+                    <div style="width:60px;height:60px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;border:1px solid #e2e8f0;font-size:22px;color:#16a34a;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
                         <i class="fa-brands fa-whatsapp"></i>
                     </div>
-                    <h4 class="text-slate-900 font-bold mb-2">Direct WhatsApp Support</h4>
-                    <p class="text-xs text-slate-500">Priority support directly on WhatsApp during live market hours.</p>
+                    <h4 style="font-weight:700;font-size:0.95rem;color:#0f172a;margin-bottom:6px;">Direct WhatsApp</h4>
+                    <p style="font-size:12px;color:#6b7280;">Priority support directly on WhatsApp during live market hours.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing -->
+    <!-- PRICING -->
     <section id="pricing" class="py-24">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 animate-on-scroll fade-in-up">
-                <h3 class="text-3xl md:text-4xl font-black text-slate-900">Index Options Packages</h3>
-                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">
-                    Professional index trading strategies based on market research & analysis.
-                </p>
+            <div class="text-center mb-14 reveal">
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#0f172a;">Index Options Packages</h2>
+                <p style="color:#6b7280;margin-top:10px;font-size:0.95rem;max-width:480px;margin-left:auto;margin-right:auto;">Professional index trading strategies based on market research & analysis.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-7 items-center">
                 <!-- Silver -->
-                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-left hover:-translate-y-1 transition-transform duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-2xl font-bold text-slate-800">Silver</h4>
-                        <span class="text-xs font-bold bg-slate-200 text-slate-700 px-2 py-1 rounded">Basic</span>
+                <div class="card p-8 reveal from-left" style="transition-delay:0s;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <h3 style="font-weight:800;font-size:1.3rem;color:#334155;">Silver</h3>
+                        <span style="font-size:11px;font-weight:700;background:#f1f5f9;color:#64748b;padding:3px 10px;border-radius:20px;">Starter</span>
                     </div>
-                    <p class="text-sm text-slate-600 mb-6 h-10">For beginners focusing on a structured trading approach.</p>
-                    <div class="text-4xl font-black text-slate-900 mb-6">₹75k</div>
-                    <ul class="space-y-3 text-sm text-slate-700 mb-8 border-t border-slate-200 pt-6">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> 1 Research-Based Trade Setup Daily</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Entry, Target & Stop Loss Levels</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Intraday Market Insights</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Basic WhatsApp Support</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Educational Trade Understanding</li>
-                        <li class="pt-2"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i> <span class="text-amber-700 font-semibold">Risk: High</span></li>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:16px;min-height:40px;">For beginners focusing on structured trading.</p>
+                    <div style="font-size:2.4rem;font-weight:900;color:#0f172a;margin-bottom:20px;">₹75k</div>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13px;color:#374151;border-top:1px solid #f1f5f9;padding-top:18px;margin-bottom:24px;">
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>1 Research-Based Trade Setup Daily</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Entry, Target & Stop Loss Levels</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Intraday Market Insights</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Basic WhatsApp Support</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Educational Trade Understanding</li>
+                        <li style="margin-top:4px;"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;margin-right:8px;"></i><span style="color:#92400e;font-weight:600;">Risk Level: High</span></li>
                     </ul>
-                    <a href="agreement.html" class="block text-center w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition-colors border border-slate-700">
-                        Get Started
-                    </a>
+                    <a href="agreement.html" style="display:block;text-align:center;background:#1e293b;color:#fff;font-weight:700;font-size:14px;padding:13px;border-radius:10px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#334155';" onmouseout="this.style.background='#1e293b';">Get Started</a>
                 </div>
 
                 <!-- Gold -->
-                <div class="bg-gradient-to-b from-emerald-50 to-white border-2 border-emerald-500 p-8 rounded-2xl animate-on-scroll fade-in-up relative transform md:-translate-y-4 shadow-2xl shadow-emerald-100">
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-emerald-600 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
-                        Recommended
+                <div class="reveal pricing-gold" style="border-radius:20px;padding:32px;position:relative;transform:translateY(-12px);box-shadow:0 20px 60px rgba(5,150,105,0.15);">
+                    <div style="position:absolute;top:0;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#059669,#0891b2);color:#fff;padding:5px 18px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;box-shadow:0 4px 12px rgba(5,150,105,0.3);">
+                        ⭐ Recommended
                     </div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-2xl font-bold text-amber-600">Gold</h4>
-                        <span class="text-xs font-bold bg-amber-100 text-amber-700 px-2 py-1 rounded">Most Popular</span>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <h3 style="font-weight:800;font-size:1.3rem;color:#d97706;">Gold</h3>
+                        <span style="font-size:11px;font-weight:700;background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:20px;">Most Popular</span>
                     </div>
-                    <p class="text-sm text-slate-700 mb-6 h-10">Best suited for active traders aiming for consistency.</p>
-                    <div class="text-4xl font-black text-slate-900 mb-6">₹1.5L</div>
-                    <ul class="space-y-3 text-sm text-slate-800 mb-8 border-t border-emerald-100 pt-6">
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Up to 2 Trade Setups Daily</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> BankNifty, Nifty & Finnifty</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Entry, Exit & Risk Levels with Logic</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Weekly Expiry Strategy Calls</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Intraday + Short-Term Opportunities</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Priority WhatsApp Alerts</li>
-                        <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i> Live Market Tracking Support</li>
-                        <li class="pt-2"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i> <span class="text-red-700 font-semibold">Risk: High to Very High</span></li>
+                    <p style="font-size:13px;color:#475569;margin-bottom:16px;min-height:40px;">Best for active traders aiming for consistency.</p>
+                    <div style="font-size:2.4rem;font-weight:900;color:#0f172a;margin-bottom:20px;">₹1.5L</div>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13px;color:#1e293b;border-top:1px solid #d1fae5;padding-top:18px;margin-bottom:24px;">
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Up to 2 Research Trade Setups Daily</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>BankNifty, Nifty & Finnifty</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Entry, Exit & Risk Levels with Logic</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Weekly Expiry Strategy Calls</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Intraday + Short-Term Opportunities</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Priority WhatsApp Alerts</li>
+                        <li><i class="fa-solid fa-check" style="color:#059669;margin-right:8px;"></i>Live Market Tracking Support</li>
+                        <li style="margin-top:4px;"><i class="fa-solid fa-triangle-exclamation" style="color:#ef4444;margin-right:8px;"></i><span style="color:#991b1b;font-weight:600;">Risk: High to Very High</span></li>
                     </ul>
-                    <a href="agreement.html" class="block text-center w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-emerald-200">
-                        Get Started
-                    </a>
+                    <a href="agreement.html" style="display:block;text-align:center;background:linear-gradient(135deg,#059669,#0891b2);color:#fff;font-weight:700;font-size:14px;padding:13px;border-radius:10px;text-decoration:none;box-shadow:0 6px 20px rgba(5,150,105,0.3);transition:opacity 0.2s,transform 0.2s;" onmouseover="this.style.opacity='0.9';this.style.transform='translateY(-1px)';" onmouseout="this.style.opacity='1';this.style.transform='';">Get Started</a>
                 </div>
 
                 <!-- Platinum -->
-                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-right hover:-translate-y-1 transition-transform duration-300">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-2xl font-bold text-slate-800">Platinum</h4>
-                        <span class="text-xs font-bold bg-slate-800 text-white px-2 py-1 rounded">Elite</span>
+                <div class="card p-8 reveal from-right" style="transition-delay:0s;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <h3 style="font-weight:800;font-size:1.3rem;color:#334155;">Platinum</h3>
+                        <span style="font-size:11px;font-weight:700;background:#1e293b;color:#fff;padding:3px 10px;border-radius:20px;">Elite</span>
                     </div>
-                    <p class="text-sm text-slate-600 mb-6 h-10">For experienced traders with higher capital exposure.</p>
-                    <div class="text-4xl font-black text-slate-900 mb-6">₹1.77L</div>
-                    <ul class="space-y-3 text-sm text-slate-700 mb-8 border-t border-slate-200 pt-6">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Up to 3 Trade Setups Daily</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Nifty, BankNifty, Sensex</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Expiry Strategy Planning</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Volatility-Based Opportunities</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Live Market Observation</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Priority Dedicated Support</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Trading Psychology Insights</li>
-                        <li class="pt-2"><i class="fa-solid fa-triangle-exclamation text-red-600 mr-2"></i> <span class="text-red-700 font-semibold">Risk: High to Very High</span></li>
+                    <p style="font-size:13px;color:#6b7280;margin-bottom:16px;min-height:40px;">For experienced traders with higher capital exposure.</p>
+                    <div style="font-size:2.4rem;font-weight:900;color:#0f172a;margin-bottom:20px;">₹1.77L</div>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;font-size:13px;color:#374151;border-top:1px solid #f1f5f9;padding-top:18px;margin-bottom:24px;">
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Up to 3 Trade Setups Daily</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Nifty, BankNifty, Sensex</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Expiry Strategy Planning</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Volatility-Based Opportunities</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Live Market Observation</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Priority Dedicated Support</li>
+                        <li><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:8px;"></i>Trading Psychology Insights</li>
+                        <li style="margin-top:4px;"><i class="fa-solid fa-triangle-exclamation" style="color:#ef4444;margin-right:8px;"></i><span style="color:#991b1b;font-weight:600;">Risk: High to Very High</span></li>
                     </ul>
-                    <a href="agreement.html" class="block text-center w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition-colors border border-slate-700">
-                        Get Started
-                    </a>
+                    <a href="agreement.html" style="display:block;text-align:center;background:#1e293b;color:#fff;font-weight:700;font-size:14px;padding:13px;border-radius:10px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#334155';" onmouseout="this.style.background='#1e293b';">Get Started</a>
                 </div>
             </div>
-            
-            <p class="text-center text-xs text-slate-500 mt-8 max-w-3xl mx-auto animate-on-scroll fade-in-up">
+
+            <p style="text-align:center;font-size:11px;color:#94a3b8;margin-top:28px;max-width:700px;margin-left:auto;margin-right:auto;">
                 Disclaimer: We are SEBI Registered Research Analysts. All recommendations are based on market research & analysis. Market investments are subject to risk. No guaranteed returns. Past performance is not indicative of future results.
             </p>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-20 bg-slate-100 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 text-center animate-on-scroll fade-in-up">
-            <h3 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Client Testimonials</h3>
-            <p class="text-slate-600 mb-12">
-                Trusted by investors across India. See what our clients say about their experience with NiiveshNeeti.
-            </p>
+    <!-- TESTIMONIALS -->
+    <section class="py-20 section-alt border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:#0f172a;">Client Testimonials</h2>
+                <p style="color:#6b7280;margin-top:10px;font-size:0.95rem;">Trusted by investors across India.</p>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card p-6 rounded-xl text-left border-l-4 border-l-emerald-500 hover:-translate-y-1 transition-transform">
-                    <div class="flex text-amber-400 mb-3 text-xs gap-1">
+                <div class="card testimonial-card p-6 reveal delay-1" style="border-left:4px solid #059669;">
+                    <div style="color:#f59e0b;font-size:13px;margin-bottom:10px;display:flex;gap:2px;">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-sm italic text-slate-700">"Highly disciplined research. The entry and exit points are precise. The WhatsApp alerts are lightning fast."</p>
-                    <p class="text-xs font-bold text-slate-900 mt-4">- Verified Client</p>
+                    <p style="font-size:13.5px;font-style:italic;color:#374151;line-height:1.7;">"Highly disciplined research. The entry and exit points are precise. WhatsApp alerts arrive before the market even moves."</p>
+                    <p style="font-size:12px;font-weight:700;color:#0f172a;margin-top:14px;">— Verified Client</p>
                 </div>
-                <div class="glass-card p-6 rounded-xl text-left border-l-4 border-l-blue-500 hover:-translate-y-1 transition-transform">
-                    <div class="flex text-amber-400 mb-3 text-xs gap-1">
+                <div class="card testimonial-card p-6 reveal delay-2" style="border-left:4px solid #1d4ed8;">
+                    <div style="color:#f59e0b;font-size:13px;margin-bottom:10px;display:flex;gap:2px;">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-sm italic text-slate-700">"The clear communication during live market hours helps a lot in managing risk. Target updates are instant."</p>
-                    <p class="text-xs font-bold text-slate-900 mt-4">- Verified Client</p>
+                    <p style="font-size:13.5px;font-style:italic;color:#374151;line-height:1.7;">"Clear communication during live market hours helped a lot in managing risk. Target 1 and Target 2 hit almost daily."</p>
+                    <p style="font-size:12px;font-weight:700;color:#0f172a;margin-top:14px;">— Verified Client</p>
                 </div>
-                <div class="glass-card p-6 rounded-xl text-left border-l-4 border-l-purple-500 hover:-translate-y-1 transition-transform">
-                    <div class="flex text-amber-400 mb-3 text-xs gap-1">
+                <div class="card testimonial-card p-6 reveal delay-3" style="border-left:4px solid #7c3aed;">
+                    <div style="color:#f59e0b;font-size:13px;margin-bottom:10px;display:flex;gap:2px;">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                     </div>
-                    <p class="text-sm italic text-slate-700">"Great mutual fund selection for long-term SIP holding. Research quality is institutional-grade."</p>
-                    <p class="text-xs font-bold text-slate-900 mt-4">- Verified Client</p>
+                    <p style="font-size:13.5px;font-style:italic;color:#374151;line-height:1.7;">"Great mutual fund selection for long-term SIP holding. Research quality is institutional-grade and easy to follow."</p>
+                    <p style="font-size:12px;font-weight:700;color:#0f172a;margin-top:14px;">— Verified Client</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="bg-white pt-16 pb-8 border-t border-slate-200">
+    <!-- FOOTER -->
+    <footer id="contact" class="bg-white pt-14 pb-8 border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-                <div class="md:col-span-1">
-                    <img src="niiveshlogo.png" alt="Niiveshneeti" class="h-10 mb-6" onerror="this.src='https://via.placeholder.com/150x40/f8fafc/0f172a?text=NIIVESHNEETI'">
-                    <p class="text-slate-600 text-sm">Invest with Neeti (Plan), Grow with Clarity.</p>
-                </div>
-                
                 <div>
-                    <h4 class="text-slate-900 font-bold mb-4 uppercase text-sm tracking-wider">Contact Us</h4>
-                    <ul class="space-y-3 text-sm text-slate-600">
-                        <li><i class="fa-solid fa-phone mr-2 text-emerald-600"></i> +91 88798 57949</li>
-                        <li><i class="fa-solid fa-envelope mr-2 text-emerald-600"></i> support@niiveshneeti.com</li>
-                        <li><i class="fa-solid fa-clock mr-2 text-emerald-600"></i> Mon to Sat, 9:00AM to 6:00PM</li>
+                    <img src="niiveshlogo.png" alt="Niiveshneeti" class="h-10 mb-5" onerror="this.src='https://via.placeholder.com/160x40/f8fafc/0f172a?text=NIIVESHNEETI'">
+                    <p style="font-size:13px;color:#6b7280;line-height:1.7;">Invest with Neeti (Plan), Grow with Clarity.</p>
+                </div>
+                <div>
+                    <h4 style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:14px;">Contact Us</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;color:#6b7280;">
+                        <li><i class="fa-solid fa-phone" style="color:#059669;margin-right:8px;width:14px;"></i>+91 88798 57949</li>
+                        <li><i class="fa-solid fa-envelope" style="color:#059669;margin-right:8px;width:14px;"></i>support@niiveshneeti.com</li>
+                        <li><i class="fa-solid fa-clock" style="color:#059669;margin-right:8px;width:14px;"></i>Mon to Sat, 9:00AM to 6:00PM</li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="text-slate-900 font-bold mb-4 uppercase text-sm tracking-wider">Quick Links</h4>
-                    <ul class="space-y-2 text-sm text-slate-600 flex flex-col">
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Disclaimer</a>
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Disclosure</a>
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Terms & Condition</a>
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Privacy Policy</a>
+                    <h4 style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:14px;">Quick Links</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;">
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Disclaimer</a></li>
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Disclosure</a></li>
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Terms & Condition</a></li>
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Privacy Policy</a></li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="text-slate-900 font-bold mb-4 uppercase text-sm tracking-wider">Help & Support</h4>
-                    <ul class="space-y-2 text-sm text-slate-600 flex flex-col">
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Grievance Redressal</a>
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Complaints</a>
-                        <a href="agreement.html" class="hover:text-emerald-600 transition-colors">Investor Charter</a>
+                    <h4 style="font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:14px;">Help & Support</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;">
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Grievance Redressal</a></li>
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Complaints</a></li>
+                        <li><a href="agreement.html" style="color:#6b7280;text-decoration:none;" onmouseover="this.style.color='#059669';" onmouseout="this.style.color='#6b7280';">Investor Charter</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-8 text-[11px] text-slate-600 space-y-3 leading-relaxed">
+            <!-- SEBI Block -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:20px 24px;margin-bottom:28px;font-size:11px;color:#6b7280;line-height:1.75;display:flex;flex-direction:column;gap:10px;">
                 <p><strong>*Disclaimer:</strong> "Registration granted by SEBI and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors."</p>
                 <p><strong>*Disclaimer:</strong> For security/securities displayed in the website and in the advertisement – "The securities quoted (If any) on our website or in any of our advertisement are for illustration only and are not recommendatory."</p>
                 <p><strong>*Standard warning:</strong> "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."</p>
                 <p><strong>*Mandatory notice:</strong> "Clients shall be requested to go through Do's and Don'ts while dealing with RA as specified in SEBI master circular no. SEBI/HO/MIRSD-POD-1/P/CIR/2024/49 dated May 21, 2024 or as may be specified by SEBI from time to time."</p>
-                
-                <div class="border-t border-slate-200 pt-3 mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div style="border-top:1px solid #e2e8f0;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
                     <div>
-                        <p class="font-bold text-slate-900 mb-1">SEBI Registered Research Analyst Details:</p>
+                        <p style="font-weight:700;color:#0f172a;margin-bottom:4px;">SEBI Registered Research Analyst Details:</p>
                         <p>Registered Name: Amit Kori</p>
                         <p>Type of registration: Individual</p>
                         <p>Registration No.: INH000016533</p>
                         <p>Validity: Nov 22, 2027</p>
                     </div>
                     <div>
-                        <p class="font-bold text-slate-900 mb-1">Nearest SEBI Office Address:</p>
+                        <p style="font-weight:700;color:#0f172a;margin-bottom:4px;">Nearest SEBI Office Address:</p>
                         <p>SEBI Bhavan BKC, Plot No.C4-A, 'G' Block</p>
                         <p>Bandra-Kurla Complex, Bandra (East),</p>
                         <p>Mumbai – 400051, Maharashtra</p>
@@ -683,25 +781,329 @@
                 </div>
             </div>
 
-            <div class="text-center text-xs text-slate-500 border-t border-slate-200 pt-6">
-                <p>Niiveshneeti ©2026 All Rights Reserved.</p>
+            <div style="text-align:center;font-size:12px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:20px;">
+                Niiveshneeti ©2026 All Rights Reserved.
             </div>
         </div>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15 });
+    // ============================================================
+    // CONTINUOUS WHATSAPP ADVISORY CHAT ANIMATION
+    // Non-stop looping with varied trade scenarios
+    // ============================================================
 
-            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    const chatMessages = document.getElementById('chatMessages');
+    const chatBody = document.getElementById('chatBody');
+
+    // All possible trade scenarios — randomly picked each cycle
+    const tradeScenarios = [
+        {
+            symbol: 'Nifty 24000 PE',
+            action: 'Buy 🟢',
+            entry: 112,
+            t1: 140,
+            t2: 165,
+            sl: 100,
+            t1Pct: '+25%',
+            t2Pct: '+47%',
+            time1: '09:22 AM',
+            time2: '10:48 AM',
+            time3: '11:35 AM',
+            type: 'PUT',
+        },
+        {
+            symbol: 'BankNifty 52000 CE',
+            action: 'Buy 🟢',
+            entry: 220,
+            t1: 280,
+            t2: 340,
+            sl: 190,
+            t1Pct: '+27%',
+            t2Pct: '+55%',
+            time1: '09:35 AM',
+            time2: '11:10 AM',
+            time3: '12:05 PM',
+            type: 'CALL',
+        },
+        {
+            symbol: 'Nifty 24500 CE',
+            action: 'Buy 🟢',
+            entry: 85,
+            t1: 108,
+            t2: 135,
+            sl: 72,
+            t1Pct: '+27%',
+            t2Pct: '+59%',
+            time1: '09:18 AM',
+            time2: '10:30 AM',
+            time3: '11:52 AM',
+            type: 'CALL',
+        },
+        {
+            symbol: 'BankNifty 51500 PE',
+            action: 'Buy 🟢',
+            entry: 175,
+            t1: 218,
+            t2: 265,
+            sl: 152,
+            t1Pct: '+25%',
+            t2Pct: '+51%',
+            time1: '09:45 AM',
+            time2: '11:20 AM',
+            time3: '12:30 PM',
+            type: 'PUT',
+        },
+        {
+            symbol: 'Finnifty 21800 CE',
+            action: 'Buy 🟢',
+            entry: 62,
+            t1: 80,
+            t2: 100,
+            sl: 52,
+            t1Pct: '+29%',
+            t2Pct: '+61%',
+            time1: '09:20 AM',
+            time2: '10:55 AM',
+            time3: '12:10 PM',
+            type: 'CALL',
+        },
+        {
+            symbol: 'Nifty 23800 PE',
+            action: 'Buy 🟢',
+            entry: 145,
+            t1: 185,
+            t2: 225,
+            sl: 128,
+            t1Pct: '+28%',
+            t2Pct: '+55%',
+            time1: '09:30 AM',
+            time2: '11:00 AM',
+            time3: '01:15 PM',
+            type: 'PUT',
+        },
+    ];
+
+    let currentScenarioIdx = 0;
+    let isAnimating = false;
+
+    function getRandomScenario() {
+        // Pick a different scenario each time
+        const idx = currentScenarioIdx % tradeScenarios.length;
+        currentScenarioIdx++;
+        return tradeScenarios[idx];
+    }
+
+    function createTypingBubble() {
+        const div = document.createElement('div');
+        div.className = 'typing-bubble';
+        div.innerHTML = `
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        `;
+        return div;
+    }
+
+    function createTradeAlertMsg(sc) {
+        const div = document.createElement('div');
+        div.className = 'msg msg-in';
+        const isCall = sc.type === 'CALL';
+        const typeColor = isCall ? '#16a34a' : '#dc2626';
+        const typeBg   = isCall ? '#dcfce7' : '#fee2e2';
+        div.innerHTML = `
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:7px;font-size:10px;font-weight:700;color:#059669;text-transform:uppercase;letter-spacing:0.06em;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> New Trade Alert
+            </div>
+            <div style="font-weight:800;font-size:14px;color:#0f172a;margin-bottom:9px;">${sc.symbol}</div>
+            <div style="font-size:10px;font-weight:700;background:${typeBg};color:${typeColor};display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;margin-bottom:9px;">
+                ${isCall ? '<i class="fa-solid fa-arrow-trend-up"></i>' : '<i class="fa-solid fa-arrow-trend-down"></i>'} ${sc.type} ${sc.action}
+            </div>
+            <div style="background:#f8fafc;border-radius:8px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
+                <div class="trade-row"><span style="color:#6b7280;">Entry</span><span style="font-weight:700;">₹${sc.entry}</span></div>
+                <div class="trade-row"><span style="color:#6b7280;">Target 1</span><span style="font-weight:700;color:#059669;">₹${sc.t1}</span></div>
+                <div class="trade-row"><span style="color:#6b7280;">Target 2</span><span style="font-weight:700;color:#059669;">₹${sc.t2}</span></div>
+                <div class="trade-row"><span style="color:#6b7280;">Stop Loss</span><span style="font-weight:700;color:#dc2626;">₹${sc.sl}</span></div>
+            </div>
+            <div class="trade-badge badge-live"><i class="fa-solid fa-clock"></i> Trade Active</div>
+            <div class="msg-time">${sc.time1} <i class="fa-solid fa-check-double" style="color:#93c5fd;font-size:9px;"></i></div>
+        `;
+        return div;
+    }
+
+    function createTarget1Msg(sc) {
+        const div = document.createElement('div');
+        div.className = 'msg msg-out';
+        div.innerHTML = `
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                <span style="width:22px;height:22px;border-radius:50%;background:#059669;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;flex-shrink:0;">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+                <span style="font-weight:800;font-size:13px;color:#166534;">Target 1 Achieved ✅</span>
+            </div>
+            <p style="font-size:12.5px;color:#374151;line-height:1.55;">
+                <strong>${sc.symbol}</strong> hit <strong>₹${sc.t1}</strong>.<br>
+                Book partial profits or trail SL to cost.
+            </p>
+            <div class="trade-badge badge-t1"><i class="fa-solid fa-arrow-trend-up"></i> ${sc.t1Pct} from entry</div>
+            <div class="msg-time">${sc.time2} <i class="fa-solid fa-check-double" style="color:#3b82f6;font-size:9px;"></i></div>
+        `;
+        return div;
+    }
+
+    function createTarget2Msg(sc) {
+        const div = document.createElement('div');
+        div.className = 'msg msg-out';
+        div.innerHTML = `
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+                <span style="width:22px;height:22px;border-radius:50%;background:#d97706;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;flex-shrink:0;">
+                    <i class="fa-solid fa-trophy"></i>
+                </span>
+                <span style="font-weight:800;font-size:13px;color:#92400e;">Target 2 Achieved 🏆</span>
+            </div>
+            <p style="font-size:12.5px;color:#374151;line-height:1.55;">
+                <strong>${sc.symbol}</strong> hit <strong>₹${sc.t2}</strong>. All targets done! 🎉
+            </p>
+            <div class="trade-badge badge-t2"><i class="fa-solid fa-crown"></i> ${sc.t2Pct} from entry</div>
+            <div class="msg-time">${sc.time3} <i class="fa-solid fa-check-double" style="color:#3b82f6;font-size:9px;"></i></div>
+        `;
+        return div;
+    }
+
+    function createSummaryMsg(sc) {
+        const div = document.createElement('div');
+        div.className = 'msg msg-in';
+        div.innerHTML = `
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px;font-size:10px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:0.06em;">
+                <i class="fa-solid fa-chart-simple"></i> Trade Closed
+            </div>
+            <p style="font-size:12.5px;color:#374151;line-height:1.6;">
+                Excellent trade! Both targets achieved.<br>
+                <strong>Next opportunity incoming soon. Stay tuned.</strong>
+            </p>
+            <div class="msg-time" style="justify-content:flex-start;color:#94a3b8;font-size:10px;margin-top:5px;">Niiveshneeti</div>
+        `;
+        return div;
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function appendAndShow(el) {
+        chatMessages.appendChild(el);
+        // Trigger reflow
+        void el.offsetWidth;
+        el.classList.add('visible');
+        // Scroll to bottom of chat body
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function removeOldMessages() {
+        // Keep the chat looking clean — remove messages that are out of view
+        const msgs = chatMessages.querySelectorAll('.msg, .typing-bubble');
+        // Keep max 6 messages visible
+        if (msgs.length > 6) {
+            const toRemove = msgs.length - 6;
+            for (let i = 0; i < toRemove; i++) {
+                const el = msgs[i];
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                el.style.opacity = '0';
+                el.style.transform = 'translateX(-20px)';
+                setTimeout(() => el.remove(), 500);
+            }
+        }
+    }
+
+    async function runChatCycle() {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const sc = getRandomScenario();
+
+        // Step 1: Show typing
+        const typing = createTypingBubble();
+        chatMessages.appendChild(typing);
+        void typing.offsetWidth;
+        typing.classList.add('visible');
+        chatBody.scrollTop = chatBody.scrollHeight;
+        await sleep(1800);
+
+        // Step 2: Remove typing, show trade alert
+        typing.style.transition = 'opacity 0.25s ease';
+        typing.style.opacity = '0';
+        await sleep(280);
+        typing.remove();
+
+        const alertMsg = createTradeAlertMsg(sc);
+        appendAndShow(alertMsg);
+        removeOldMessages();
+        await sleep(3500);
+
+        // Step 3: Show typing for Target 1
+        const typing2 = createTypingBubble();
+        chatMessages.appendChild(typing2);
+        void typing2.offsetWidth;
+        typing2.classList.add('visible');
+        chatBody.scrollTop = chatBody.scrollHeight;
+        await sleep(1500);
+        typing2.style.transition = 'opacity 0.25s ease';
+        typing2.style.opacity = '0';
+        await sleep(280);
+        typing2.remove();
+
+        const t1Msg = createTarget1Msg(sc);
+        appendAndShow(t1Msg);
+        removeOldMessages();
+        await sleep(3200);
+
+        // Step 4: Show typing for Target 2
+        const typing3 = createTypingBubble();
+        chatMessages.appendChild(typing3);
+        void typing3.offsetWidth;
+        typing3.classList.add('visible');
+        chatBody.scrollTop = chatBody.scrollHeight;
+        await sleep(1600);
+        typing3.style.transition = 'opacity 0.25s ease';
+        typing3.style.opacity = '0';
+        await sleep(280);
+        typing3.remove();
+
+        const t2Msg = createTarget2Msg(sc);
+        appendAndShow(t2Msg);
+        removeOldMessages();
+        await sleep(3000);
+
+        // Step 5: Summary message
+        const sumMsg = createSummaryMsg(sc);
+        appendAndShow(sumMsg);
+        removeOldMessages();
+        await sleep(2800);
+
+        isAnimating = false;
+
+        // Loop immediately — next trade
+        runChatCycle();
+    }
+
+    // Start after a short delay for page load
+    setTimeout(runChatCycle, 800);
+
+
+    // ============================================================
+    // SCROLL REVEAL
+    // ============================================================
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
         });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
+
 </body>
 </html>
