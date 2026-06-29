@@ -3,139 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consent Form & Agreement | Niiveshneeti</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>User Agreement & MITC | Niiveshneeti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script>
+    <style>
+        /* Custom scrollbar for the legal text box to make it look premium */
+        .legal-scroll::-webkit-scrollbar { width: 8px; }
+        .legal-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        .legal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .legal-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 antialiased font-sans pb-16">
+<body class="bg-slate-50 text-slate-900 antialiased font-sans pb-20">
 
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <div class="text-xl font-extrabold tracking-wider text-blue-900">NIIVESHNEETI</div>
+                <div class="text-2xl font-black tracking-widest text-indigo-900">NIIVESHNEETI</div>
             </div>
-            <nav class="flex space-x-6 text-sm font-bold text-gray-700">
-                <a href="index.html" class="hover:text-blue-600 transition-colors uppercase">Home</a>
-                <a href="#" class="hover:text-blue-600 transition-colors uppercase">Services</a>
-                <a href="agreement.html" class="text-blue-600 border-b-2 border-blue-600 pb-1 uppercase">User Agreement</a>
-                <a href="#" class="hover:text-blue-600 transition-colors uppercase">Complaint Board</a>
+            <nav class="hidden md:flex space-x-8 text-sm font-bold text-slate-600">
+                <a href="#" class="hover:text-indigo-600 transition-colors uppercase tracking-wide">Home</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors uppercase tracking-wide">Services</a>
+                <a href="#" class="text-indigo-600 border-b-2 border-indigo-600 pb-1 uppercase tracking-wide">User Agreement</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors uppercase tracking-wide">Grievance</a>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto mt-8 px-4 flex gap-6">
+    <main class="max-w-4xl mx-auto mt-10 px-4">
         
-        <div class="hidden md:block w-64 shrink-0">
-            <div class="bg-blue-900 text-white rounded-t-lg p-3 font-bold flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                Contents
-            </div>
-            <div class="bg-white border border-gray-200 border-t-0 rounded-b-lg p-2 text-sm text-gray-600 space-y-1">
-                <div class="p-2 hover:bg-gray-50 cursor-pointer text-gray-400">Parties</div>
-                <div class="p-2 bg-gray-100 font-semibold text-blue-800 border-l-4 border-yellow-500">Scope of Service</div>
-                <div class="p-2 hover:bg-gray-50 cursor-pointer text-gray-400">Consent of Client</div>
-                <div class="p-2 hover:bg-gray-50 cursor-pointer text-gray-400">Fees & Billing</div>
-            </div>
-        </div>
-
-        <div class="flex-1 bg-white p-8 rounded-xl shadow-xs border border-gray-200" id="pdf-agreement-area">
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden" id="pdf-agreement-area">
             
-            <div class="border-b border-gray-200 pb-4 mb-6 flex items-center gap-3">
-                <div class="bg-blue-900 p-2 rounded-lg text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-bold tracking-tight text-blue-900">User Consent & Digital Signature</h1>
-                    <p class="text-sm text-gray-500 mt-1">Please complete all fields below and draw your signature to sign this agreement.</p>
-                </div>
+            <div class="bg-indigo-900 text-white p-8">
+                <h1 class="text-3xl font-bold tracking-tight">Client Registration & Agreement</h1>
+                <p class="text-indigo-200 mt-2 text-sm font-medium">SEBI Registered Research Analyst • INH0000165333</p>
             </div>
 
-            <form id="agreementForm" class="space-y-6">
+            <form id="agreementForm" class="p-8 space-y-10">
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Your Full Name <span class="text-red-500">*</span></label>
-                        <input type="text" id="clientName" placeholder="As per PAN / Aadhaar" required class="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-hidden">
+                <section>
+                    <div class="flex items-center gap-2 mb-6 border-b border-slate-100 pb-2">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">1</span>
+                        <h2 class="text-lg font-bold text-slate-800 uppercase tracking-wide">Personal Information</h2>
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Mobile No. <span class="text-red-500">*</span></label>
-                        <input type="tel" id="mobileNumber" placeholder="+91 XXXXX XXXXX" required class="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-hidden">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Your Email <span class="text-red-500">*</span></label>
-                        <input type="email" id="clientEmail" placeholder="you@example.com — PDF copy sent here" required class="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-hidden">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Agent / Relationship Manager Name</label>
-                        <input type="text" id="rmName" placeholder="Leave blank if none" class="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-hidden">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Aadhaar Number <span class="text-red-500">*</span></label>
-                        <input type="text" id="aadhaarNumber" placeholder="Your Aadhaar Number" required class="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-hidden">
-                        <p class="text-xs text-gray-500 mt-1">Enter the 12-digit Aadhaar number without spaces.</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Upload Aadhaar Card Front <span class="text-red-500">*</span></label>
-                        <input type="file" id="aadhaarFrontFile" accept="image/*" required class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md file:mr-4 file:py-2.5 file:px-4 file:border-0 file:border-r file:border-gray-300 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
-                        <p class="text-xs text-gray-500 mt-1">Upload the front image of the Aadhaar card.</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Upload Aadhaar Card Back <span class="text-red-500">*</span></label>
-                        <input type="file" id="aadhaarBackFile" accept="image/*" required class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md file:mr-4 file:py-2.5 file:px-4 file:border-0 file:border-r file:border-gray-300 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
-                        <p class="text-xs text-gray-500 mt-1">Upload the back image of the Aadhaar card.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-bold text-gray-700">PAN Number <span class="text-red-500">*</span></label>
-                        <input type="text" id="panNumber" placeholder="Your PAN Number" required class="mt-1 block w-full rounded-md border border-gray-300 p-2.5 text-sm uppercase focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-hidden">
-                        <p class="text-xs text-gray-500 mt-1">Enter your 10-character PAN number.</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700">Upload PAN Card <span class="text-red-500">*</span></label>
-                        <input type="file" id="panFile" accept="image/*" required class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-md file:mr-4 file:py-2.5 file:px-4 file:border-0 file:border-r file:border-gray-300 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
-                        <p class="text-xs text-gray-500 mt-1">Upload an image of the PAN card.</p>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t border-gray-200">
-                    <h3 class="text-sm font-bold text-gray-800 uppercase mb-3">Scope of Service</h3>
-                    <div class="text-xs text-gray-600 space-y-3 bg-gray-50 p-4 rounded border border-gray-200 h-48 overflow-y-auto">
-                        <p>A research analyst studies companies and industries, analyses raw data, and makes forecasts or recommendations about whether to buy, hold or sell securities. Niiveshneeti analyses information to provide recommendations about investments in securities to the clients.</p>
-                        <p>Research Analyst & his team may assist clients in understanding the research / trade & execution. But the <strong>client will be solely and in totality responsible for all his trades</strong> done. He will be in full capacity responsible for his capital risk, quantity management & trade Profit/losses. Neither Research Analyst nor his team can be held liable for any profits or losses or his capital risk directly or indirectly at any point of time.</p>
-                        <p class="font-bold">Risk Disclosure On Derivatives — SEBI Study</p>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li>9 out of 10 individual traders in equity Futures and Options Segment incurred net losses.</li>
-                            <li>On an average, loss makers registered net trading loss close to ₹50,000.</li>
-                            <li>Over and above the net trading losses incurred, loss makers expended an additional 28% of the net trading losses as transaction costs.</li>
-                            <li>Those making net trading profits incurred between 15% to 50% of such profits as transaction costs.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pt-6">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Add Your Signature <span class="text-red-500">*</span></label>
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 relative">
-                        <canvas id="signature-pad" class="w-full h-40 rounded-lg block cursor-crosshair"></canvas>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-40">
-                            <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                            <span class="font-semibold text-gray-600">Draw your signature here</span>
-                            <span class="text-xs text-gray-500">Use mouse or touch</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="As per PAN / Aadhaar" required class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all bg-slate-50 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Mobile Number <span class="text-red-500">*</span></label>
+                            <input type="tel" placeholder="+91" required class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all bg-slate-50 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address <span class="text-red-500">*</span></label>
+                            <input type="email" placeholder="you@example.com" required class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all bg-slate-50 focus:bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Agent / RM Name</label>
+                            <input type="text" placeholder="Optional" class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all bg-slate-50 focus:bg-white">
                         </div>
                     </div>
-                    <div class="mt-2 flex justify-between items-center">
-                        <button type="button" id="clearBtn" class="text-xs font-semibold text-gray-600 hover:text-gray-900 border border-gray-300 px-3 py-1.5 rounded bg-white transition-colors flex items-center gap-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-2 mb-6 border-b border-slate-100 pb-2">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">2</span>
+                        <h2 class="text-lg font-bold text-slate-800 uppercase tracking-wide">Identity Verification (KYC)</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Aadhaar Number <span class="text-red-500">*</span></label>
+                                <input type="text" placeholder="12-digit number" required class="w-full rounded-lg border border-slate-300 p-3 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Aadhaar Front <span class="text-red-500">*</span></label>
+                                <input type="file" accept="image/*" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Aadhaar Back <span class="text-red-500">*</span></label>
+                                <input type="file" accept="image/*" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">PAN Number <span class="text-red-500">*</span></label>
+                                <input type="text" placeholder="10-character alphanumeric" required class="w-full rounded-lg border border-slate-300 p-3 text-sm uppercase focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Upload PAN Card <span class="text-red-500">*</span></label>
+                                <input type="file" accept="image/*" required class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">3</span>
+                        <h2 class="text-lg font-bold text-slate-800 uppercase tracking-wide">Terms & Conditions (MITC)</h2>
+                    </div>
+                    
+                    <div class="border border-slate-300 rounded-xl bg-slate-50 p-6 h-96 overflow-y-auto legal-scroll text-sm text-slate-700 space-y-6 shadow-inner relative">
+                        
+                        <div class="text-center mb-6">
+                            <h3 class="font-bold text-slate-900 text-lg">Terms and Conditions</h3>
+                            <p class="text-xs text-slate-500">As per SEBI Circular (SEBI/HO/MIRSD/ MIRSD-PoD-1/P/CIR/2025/004) Annexure-B</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-indigo-900 mb-2">1. Availing the research services</h4>
+                            <p>By accepting delivery of the research service, the client confirms that he/she has elected to subscribe to the research service of the RA at his/her sole discretion. RA confirms that research services shall be rendered in accordance with the applicable provisions of the RA Regulations.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-indigo-900 mb-2">4. Client Consent & Understanding</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on the research report provided by the research analyst shall be as per our own judgment and assessment.</li>
+                                <li>Any investment made based on the recommendations in the research report is <strong>subject to market risk</strong>.</li>
+                                <li>Recommendations in the research report <strong>do not provide any assurance of returns</strong>.</li>
+                                <li>There is no recourse to claim any losses incurred on the investments made based on the recommendations in the Research Report.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                            <h4 class="font-bold text-indigo-900 mb-2">Declaration from Amit Kori ("Research Analyst")</h4>
+                            <ul class="list-decimal pl-5 space-y-1 text-xs">
+                                <li>We are duly registered with SEBI as Research Analyst under Registration No. INH0000165333 from 21st Jun 2024.</li>
+                                <li>We have no material adverse disciplinary history or any conflicts of interest that compromise the integrity of recommendations.</li>
+                                <li>The maximum fee charged by the Research Analyst shall not exceed ₹1.51 lakhs per annum per family of clients.</li>
+                                <li>The recommendations provided by us do not provide any assurance of returns.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-indigo-900 mb-2">Most Important Terms and Conditions (MITC) - Annexure A</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>The RA cannot execute/carry out any trade (purchase/sell transaction) on behalf of the client. Clients are advised not to permit RA to execute any trade on their behalf.</li>
+                                <li>Fees to RA may be paid through specified modes like online bank transfer, UPI, etc. <strong>Cash payment is not allowed.</strong></li>
+                                <li>The RA cannot guarantee returns, profits, accuracy, or risk-free investments.</li>
+                                <li><strong>The RA shall never ask for the client's login credentials and OTPs</strong> for the client's Trading Account Demat Account and Bank Account.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-indigo-900 mb-2">Grievance Redressal and Dispute Resolution</h4>
+                            <p class="mb-2">For any support-related grievances, clients must email their concerns to <strong>info@niiveshneeti.com</strong>. All grievances will be addressed within 7 (seven) business days.</p>
+                            <p>For escalation, please contact:<br><strong>Amit Kori: amitkkori@gmail.com (+91 97699 89013)</strong></p>
+                            <p class="mt-2 text-xs">If unresolved, clients can lodge grievances through SEBI’s SCORES platform (www.scores.sebi.gov.in) or the Smart ODR portal (https://smartodr.in).</p>
+                        </div>
+
+                        <div class="bg-slate-100 p-4 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-1">Disclosure Regarding Use of Artificial Intelligence (AI) Tools</h4>
+                            <p class="text-xs">In compliance with SEBI Regulations, we hereby declare that <strong>no Artificial Intelligence (AI) tools are currently used</strong> in the preparation, generation, or distribution of our research services. All research outputs and recommendations are derived through human analysis and traditional research methodologies.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 flex items-start bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                        <div class="flex items-center h-5">
+                            <input id="terms" type="checkbox" required class="w-5 h-5 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-500 cursor-pointer">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms" class="font-medium text-indigo-900 cursor-pointer">I accept the Terms and Conditions</label>
+                            <p class="text-indigo-700 text-xs mt-1">By checking this box, I acknowledge that I have read, understood, and explicitly agree to the MITC, Risk Factors, and Service Scope detailed above.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
+                        <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center text-xs">4</span>
+                        <h2 class="text-lg font-bold text-slate-800 uppercase tracking-wide">Digital Signature</h2>
+                    </div>
+                    
+                    <div class="border-2 border-dashed border-indigo-200 rounded-xl bg-white relative overflow-hidden group">
+                        <canvas id="signature-pad" class="w-full h-48 block cursor-crosshair relative z-10"></canvas>
+                        
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-300" id="sig-placeholder">
+                            <svg class="w-10 h-10 text-indigo-200 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <span class="font-bold text-slate-400">Draw your signature here</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 flex justify-between items-center px-1">
+                        <button type="button" id="clearBtn" class="text-xs font-bold text-slate-500 hover:text-red-600 transition-colors flex items-center gap-1 bg-slate-100 hover:bg-red-50 px-3 py-1.5 rounded-md">
                             Clear Signature
                         </button>
-                        <span class="text-xs font-bold text-gray-400">Unsigned</span>
+                        <span id="sig-status" class="text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-md">Unsigned</span>
                     </div>
+                </section>
+
+                <div class="pt-4 border-t border-slate-100">
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                        Complete Registration & Sign Agreement
+                    </button>
                 </div>
 
             </form>
@@ -143,34 +208,39 @@
     </main>
 
     <script>
+        // Initialize Signature Pad
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgba(255, 255, 255, 0)'
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            penColor: '#1e3a8a' // Dark blue ink
         });
 
-        function adjustCanvasResolution() {
-            const displayRatio = Math.max(window.devicePixelRatio || 1, 1);
-            canvas.width = canvas.offsetWidth * displayRatio;
-            canvas.height = canvas.offsetHeight * displayRatio;
-            canvas.getContext("2d").scale(displayRatio, displayRatio);
+        // Handle high DPI displays for crisp signatures
+        function resizeCanvas() {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
             signaturePad.clear();
         }
-        window.addEventListener("resize", adjustCanvasResolution);
-        adjustCanvasResolution();
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        // UI Updates on Signature
+        const placeholder = document.getElementById('sig-placeholder');
+        const statusBadge = document.getElementById('sig-status');
+
+        signaturePad.addEventListener("beginStroke", () => {
+            placeholder.style.opacity = '0';
+            statusBadge.innerText = 'Signed';
+            statusBadge.className = 'text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-md';
+        });
 
         document.getElementById('clearBtn').addEventListener('click', () => {
             signaturePad.clear();
-        });
-
-        // Hide the background text when user starts drawing
-        signaturePad.addEventListener("beginStroke", () => {
-            const bgText = canvas.nextElementSibling;
-            if (bgText) bgText.style.display = 'none';
-            const unsignedText = canvas.parentElement.nextElementSibling.querySelector('span');
-            if(unsignedText) {
-                unsignedText.innerText = 'Signed';
-                unsignedText.className = 'text-xs font-bold text-green-500';
-            }
+            placeholder.style.opacity = '1';
+            statusBadge.innerText = 'Unsigned';
+            statusBadge.className = 'text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1.5 rounded-md';
         });
     </script>
 </body>
