@@ -7,165 +7,296 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
     <style>
-        .dark-theme { background-color: #0a1128; }
-        .sidebar-item { @apply block py-3 px-4 text-slate-300 hover:bg-indigo-900/50 hover:text-white transition-all border-l-2 border-transparent hover:border-blue-400 cursor-pointer text-sm; }
-        .active-sidebar { @apply bg-indigo-900/50 text-white border-blue-400; }
-        .legal-content h2 { @apply text-xl font-bold text-indigo-400 mt-8 mb-4; }
-        .legal-content h3 { @apply text-lg font-bold text-white mt-6 mb-2; }
-        .legal-content p, .legal-content li { @apply mb-3 text-slate-300 leading-relaxed; }
-        .legal-content strong { @apply text-white; }
+        /* Custom scrollbar for the text area */
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        .sidebar-link.active {
+            background-color: #f8fafc;
+            border-left-color: #eab308; /* Yellow border highlight like your screenshot */
+            color: #1e3a8a;
+            font-weight: 700;
+        }
     </style>
 </head>
-<body class="dark-theme text-slate-100 font-sans">
+<body class="bg-[#040b1c] text-slate-800 font-sans pb-20">
 
-    <!-- Header -->
-    <header class="border-b border-indigo-900 bg-[#0a1128]/95 sticky top-0 z-50 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <img src="niiveshlogo.png" alt="Niiveshneeti Logo" class="h-10">
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+    <!-- Dark Theme Header matching Niiveshneeti -->
+    <header class="bg-[#040b1c] border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <img src="niiveshlogo.png" alt="Niiveshneeti" class="h-10">
+            <nav class="hidden md:flex space-x-8 text-sm font-bold text-white">
                 <a href="index.html" class="hover:text-blue-400 transition-colors">Home</a>
-                <a href="#" class="text-blue-400 border-b-2 border-blue-400 pb-1">User Agreement</a>
+                <a href="#" class="hover:text-blue-400 transition-colors">Services</a>
+                <a href="#" class="hover:text-blue-400 transition-colors">Payment Option</a>
+                <a href="agreement.html" class="text-blue-400 border-b-2 border-blue-400 pb-1">User Agreement</a>
             </nav>
         </div>
     </header>
 
-    <div class="max-w-7xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-10">
+    <div class="max-w-7xl mx-auto px-4 mt-8 flex flex-col md:flex-row gap-6">
         
-        <!-- Left Sidebar Navigation -->
-        <aside class="w-full md:w-72 shrink-0">
-            <div class="sticky top-28 bg-[#111b33] rounded-xl border border-indigo-900/50 p-2 overflow-hidden">
-                <div class="text-xs font-bold text-indigo-400 uppercase tracking-widest px-4 py-3 border-b border-indigo-900/50">Table of Contents</div>
-                <nav id="sidebar-nav">
-                    <a href="#section-terms" class="sidebar-item active-sidebar">1. Terms & Conditions</a>
-                    <a href="#section-consent" class="sidebar-item">2. Client Consent</a>
-                    <a href="#section-declaration" class="sidebar-item">3. RA Declaration</a>
-                    <a href="#section-payment" class="sidebar-item">4. Payment & Risk</a>
-                    <a href="#section-grievance" class="sidebar-item">5. Grievance Redressal</a>
-                    <a href="#section-mitc" class="sidebar-item">6. MITC (Annexure A)</a>
-                    <a href="#section-other" class="sidebar-item">7. Other T&Cs</a>
-                    <a href="#section-ai" class="sidebar-item">8. AI Disclosure</a>
-                    <a href="#section-form" class="sidebar-item">9. Sign & Submit</a>
+        <!-- Exact Left Sidebar Navigation -->
+        <aside class="w-full md:w-64 shrink-0">
+            <div class="sticky top-28 bg-white rounded-lg shadow-md overflow-hidden border border-slate-200">
+                <div class="bg-[#0f2c59] text-white p-3 font-bold flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    Contents
+                </div>
+                <nav id="sidebar-nav" class="flex flex-col text-sm text-slate-500">
+                    <a href="#sec-form" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Client Details</a>
+                    <a href="#sec-1" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Availing Services</a>
+                    <a href="#sec-2" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Obligations</a>
+                    <a href="#sec-3" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Client Consent</a>
+                    <a href="#sec-4" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Consideration & Risk</a>
+                    <a href="#sec-5" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Grievance Redressal</a>
+                    <a href="#sec-6" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">MITC (Annexure A)</a>
+                    <a href="#sec-7" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">Other Terms</a>
+                    <a href="#sec-8" class="sidebar-link block p-3 border-b border-slate-100 border-l-4 border-transparent hover:bg-slate-50">AI Disclosure</a>
                 </nav>
             </div>
         </aside>
 
-        <!-- Main Legal Content -->
-        <main class="flex-1 legal-content">
-            <div class="bg-[#111b33] p-8 md:p-12 rounded-2xl border border-indigo-900/50 shadow-2xl">
+        <!-- Main Content Area -->
+        <main class="flex-1 bg-white rounded-lg shadow-md border border-slate-200 p-6 md:p-8">
+            
+            <!-- Header Section -->
+            <div class="flex items-start gap-4 mb-8 border-b border-slate-200 pb-6">
+                <div class="bg-[#0f2c59] p-3 rounded-lg text-yellow-400 shrink-0">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-[#0f2c59]">User Consent & Digital Signature</h1>
+                    <p class="text-slate-500 text-sm mt-1">Please complete all fields below and draw your signature to sign this agreement. This electronic record is a valid and enforceable legal agreement under the Information Technology Act, 2000.</p>
+                </div>
+            </div>
+
+            <form id="mainForm" class="space-y-8">
                 
-                <h1 class="text-3xl md:text-4xl font-black text-white mb-8">User Agreement & Terms</h1>
-                
-                <section id="section-terms">
-                    <h2>1. Terms and Conditions</h2>
-                    <p>As per SEBI Circular (SEBI/HO/MIRSD/ MIRSD-PoD-1/P/CIR/2025/004) Annexure-B. By subscribing to the research services, clients acknowledge and agree to the following terms and conditions:</p>
-                    <p><strong>1. Availing the research services:</strong> By accepting delivery of the research service, the client confirms that he/she has elected to subscribe to the research service of the RA at his/her sole discretion. RA confirms that research services shall be rendered in accordance with the applicable provisions of the RA Regulations.</p>
-                    <p><strong>2. Obligation on Research Analyst:</strong> RA and client shall be bound by SEBI Act and all the applicable rules and regulations of SEBI, including the RA Regulations and relevant notifications of Government, as may be in force, from time to time.</p>
-                    <p><strong>3. Client Information and KYC:</strong> The client shall furnish all such details in full as may be required by the RA in its standard form. RA shall collect, store, upload and/or check KYC records with the KYC Registration Agency (KRA) as specified by SEBI from time to time.</p>
-                </section>
-
-                <section id="section-consent">
-                    <h2>2. Client Consent</h2>
-                    <p><strong>4. As a client, I provide my consent to commence the services after fully understanding the following:</strong></p>
-                    <ul class="list-disc pl-5">
-                        <li>I / We have read and understood the terms and conditions applicable to a research analyst as defined under regulation 2(1)(u) of the SEBI (Research Analyst) Regulations, 2014, including the fee structure.</li>
-                        <li>I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on the research report provided by the research analyst shall be as per our own judgment and assessment.</li>
-                        <li>Any investment made based on the recommendations in the research report is subject to market risk.</li>
-                        <li>Recommendations in the research report do not provide any assurance of returns.</li>
-                        <li>There is no recourse to claim any losses incurred on the investments made based on the recommendations in the Research Report.</li>
-                    </ul>
-                </section>
-
-                <section id="section-declaration">
-                    <h2>3. Declaration from Amit Kori</h2>
-                    <p>i. We are duly registered with SEBI as Research Analyst under Registration No. INH0000165333 from 21st Jun 2024; and compliant with the SEBI (Research Analyst) Regulations, 2014.</p>
-                    <p>ii. Currently we have valid SEBI registration and have the required qualifications to render services contemplated under RA regulations.</p>
-                    <p>iii. We have no material adverse disciplinary history or any conflicts of interest that compromise the integrity of its recommendations.</p>
-                    <p>iv. The maximum fee charged by the Research Analyst shall not exceed ₹1.51 lakhs per annum per family of clients.</p>
-                </section>
-
-                <section id="section-payment">
-                    <h2>4. Consideration, Payment & Risk</h2>
-                    <p><strong>5. Consideration and mode of payment:</strong> The client shall duly pay to RA, the agreed fees. Fees shall be payable through the specified manner and modes communicated by the Research Analyst (including but not limited to payment gateways or processors like Cashfree, Razorpay, UPI, NEFT, IMPS, Centralised Fee Collection Mechanism for RA, Cheque, etc.).</p>
-                    <p><strong>6. Risk Factors:</strong> Investments in securities markets are inherently risky and subject to market dynamics. Registration granted by SEBI, and certification from NISM in no way guarantee the performance of the intermediary or provide any assurance of returns to clients.</p>
-                </section>
-
-                <section id="section-grievance">
-                    <h2>5. Grievance Redressal</h2>
-                    <p><strong>9. Grievance redressal and dispute resolution:</strong> For any support-related grievances, clients must email their concerns to info@niiveshneeti.com. If unresolved, grievances must be escalated to the designated grievance officer.</p>
-                    <p><strong>For grievances and dispute resolution, please contact:</strong><br>
-                    Amit Kori: amitkkori@gmail.com | Phone: +91 97699 89013</p>
-                    <p>Clients may also lodge grievances through SEBI’s SCORES platform (www.scores.sebi.gov.in) or the Smart ODR portal (https://smartodr.in).</p>
-                </section>
-
-                <section id="section-mitc">
-                    <h2>6. MITC (Annexure A)</h2>
-                    <p>1. The RA cannot execute/carry out any trade (purchase/sell transaction) on behalf of, the client. Thus, the clients are advised not to permit RA to execute any trade on their behalf.</p>
-                    <p>4. Fees to RA may be paid by the client through any of the specified modes like cheque, online bank transfer, UPI, etc. Cash payment is not allowed.</p>
-                    <p>12. The RA shall never ask for the client’s login credentials and OTPs for the client’s Trading Account, Demat Account, and Bank Account. Never share such information with anyone including RA.</p>
-                </section>
-
-                <section id="section-other">
-                    <h2>7. Other Terms & Conditions</h2>
-                    <p>Past performance does not ensure future performance. There is a possibility of communication failures via electronic means such as E-mail/ WhatsApp messages etc., which may be beyond our control.</p>
-                </section>
-
-                <section id="section-ai">
-                    <h2>8. AI Disclosure</h2>
-                    <p><strong>14. Disclosure Regarding Use of Artificial Intelligence (AI) Tools:</strong> In compliance with Regulation 19(vii) and Regulation 24(7) of the SEBI (Research Analyst) Regulations, we hereby declare that no Artificial Intelligence (AI) tools are currently used in the preparation, generation, or distribution of our research services.</p>
-                </section>
-
-                <!-- Final Agreement & Signature Form -->
-                <section id="section-form" class="mt-12 pt-10 border-t border-indigo-900/50">
-                    <h2 class="text-2xl font-bold text-white mb-6">Digital Signature & Agreement</h2>
-                    
-                    <div class="bg-indigo-950/30 p-6 rounded-xl border border-indigo-900 border-dashed mb-6">
-                        <p class="text-xs text-slate-300 italic">
-                            <strong>Legal Validity Notice:</strong> This digital agreement is executed electronically. By signing below and submitting your KYC documents, you acknowledge that this electronic record, including your digital signature and uploaded KYC documents, constitutes a valid, binding, and enforceable legal agreement between you and the Research Analyst under the provisions of the Information Technology Act, 2000, and all applicable SEBI RA regulations.
-                        </p>
+                <!-- Client Details & Uploads exactly matching screenshot -->
+                <section id="sec-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Your Full Name <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="As per PAN / Aadhaar" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Mobile No. <span class="text-red-500">*</span></label>
+                            <input type="tel" placeholder="+91 XXXXX XXXXX" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Your Email <span class="text-red-500">*</span></label>
+                            <input type="email" placeholder="you@example.com — PDF copy sent here" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Agent / Relationship Manager Name</label>
+                            <input type="text" placeholder="Leave blank if none" class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500">
+                        </div>
                     </div>
 
-                    <form class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <input type="text" placeholder="Full Name" class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700">
-                            <input type="email" placeholder="Email Address" class="w-full p-3 rounded-lg bg-slate-900 border border-slate-700">
+                    <!-- Aadhaar Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Aadhaar Number <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="Your Aadhaar Number" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500">
+                            <p class="text-[10px] text-slate-500 mt-1">Enter the 12-digit Aadhaar number without spaces.</p>
                         </div>
-                        
-                        <div class="border-2 border-dashed border-slate-700 rounded-lg h-40 relative">
-                             <canvas id="signature-pad" class="w-full h-full"></canvas>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Upload Aadhaar Card Front <span class="text-red-500">*</span></label>
+                            <input type="file" required class="w-full border border-slate-300 rounded-md text-sm file:bg-slate-50 file:border-0 file:border-r file:border-slate-300 file:p-2.5 file:mr-3 cursor-pointer">
+                            <p class="text-[10px] text-slate-500 mt-1">Upload the front image of the Aadhaar card.</p>
                         </div>
-                        
-                        <button type="button" class="w-full bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-500 hover:to-green-400 text-white font-bold py-4 rounded-xl shadow-lg transition-all">
-                            I Accept & Sign Digitally
-                        </button>
-                    </form>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Upload Aadhaar Card Back <span class="text-red-500">*</span></label>
+                            <input type="file" required class="w-full border border-slate-300 rounded-md text-sm file:bg-slate-50 file:border-0 file:border-r file:border-slate-300 file:p-2.5 file:mr-3 cursor-pointer">
+                            <p class="text-[10px] text-slate-500 mt-1">Upload the back image of the Aadhaar card.</p>
+                        </div>
+                    </div>
+
+                    <!-- PAN Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-800 mb-1">PAN Number <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="Your PAN Number" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm uppercase outline-none focus:border-blue-500">
+                            <p class="text-[10px] text-slate-500 mt-1">Enter your 10-character PAN number.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Upload PAN Card <span class="text-red-500">*</span></label>
+                            <input type="file" required class="w-full border border-slate-300 rounded-md text-sm file:bg-slate-50 file:border-0 file:border-r file:border-slate-300 file:p-2.5 file:mr-3 cursor-pointer">
+                            <p class="text-[10px] text-slate-500 mt-1">Upload an image of the PAN card.</p>
+                        </div>
+                    </div>
                 </section>
 
-            </div>
+                <hr class="border-slate-200 my-8">
+
+                <!-- Full Legal Document Body -->
+                <div class="text-sm text-slate-600 space-y-6">
+                    
+                    <h2 class="text-lg font-bold text-slate-800 uppercase border-b border-slate-200 pb-2">Scope of Service & Terms</h2>
+                    <p class="font-semibold text-slate-800 text-xs">Terms and Conditions As per SEBI Circular (SEBI/HO/MIRSD/ MIRSD-PoD-1/P/CIR/2025/004) Annexure-B</p>
+                    <p>By subscribing to the research services, clients acknowledge and agree to the following terms and conditions:</p>
+
+                    <section id="sec-1">
+                        <h3 class="font-bold text-slate-800">1. Availing the research services:</h3>
+                        <p>By accepting delivery of the research service, the client confirms that he/she has elected to subscribe to the research service of the RA at his/her sole discretion. RA confirms that research services shall be rendered in accordance with the applicable provisions of the RA Regulations.</p>
+                    </section>
+
+                    <section id="sec-2">
+                        <h3 class="font-bold text-slate-800">2. Obligation on Research Analyst:</h3>
+                        <p>RA and client shall be bound by SEBI Act and all the applicable rules and regulations of SEBI, including the RA Regulations and relevant notifications of Government, as may be in force, from time to time.</p>
+                        <h3 class="font-bold text-slate-800 mt-4">3. Client Information and KYC:</h3>
+                        <p>The client shall furnish all such details in full as may be required by the RA in its standard form with supporting details if required, as may be made mandatory by RAASB/SEBI from time to time. RA shall collect, store, upload and/or check KYC records with the KYC Registration Agency (KRA) as specified by SEBI from time to time.</p>
+                    </section>
+
+                    <section id="sec-3">
+                        <h3 class="font-bold text-slate-800">4. As a client, I provide my consent to commence the services after fully understanding the following:</h3>
+                        <ul class="list-disc pl-5 space-y-2 mt-2">
+                            <li>I / We have read and understood the terms and conditions applicable to a research analyst as defined under regulation 2(1)(u) of the SEBI (Research Analyst) Regulations, 2014, including the fee structure.</li>
+                            <li>I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on the research report provided by the research analyst shall be as per our own judgment and assessment of the conclusions contained in the research report.</li>
+                            <li><strong>I/We understand that:</strong> Any investment made based on the recommendations in the research report is subject to market risk. Recommendations in the research report do not provide any assurance of returns. There is no recourse to claim any losses incurred on the investments made based on the recommendations.</li>
+                        </ul>
+                        
+                        <div class="bg-slate-50 p-4 rounded mt-4 border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-2">Declaration from Amit Kori (“Research Analyst”):</h4>
+                            <ul class="list-decimal pl-4 space-y-1 text-xs">
+                                <li>We are duly registered with SEBI as Research Analyst under Registration No. INH0000165333 from 21st Jun 2024; and compliant with the SEBI (Research Analyst) Regulations, 2014.</li>
+                                <li>Currently we have valid SEBI registration and have the required qualifications to render services contemplated under RA regulations.</li>
+                                <li>We have no material adverse disciplinary history or any conflicts of interest that compromise the integrity of its recommendations.</li>
+                                <li>The maximum fee charged by the Research Analyst shall not exceed ₹1.51 lakhs per annum per family of clients.</li>
+                                <li>The recommendations provided by us do not provide any assurance of returns.</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section id="sec-4">
+                        <h3 class="font-bold text-slate-800">5. Consideration and mode of payment:</h3>
+                        <p>The client shall duly pay to RA, the agreed fees for the services that RA renders to the client and statutory charges, as applicable. Such fees and statutory charges shall be payable through the specified manner and modes communicated by the Research Analyst. We may collect 1 year advance payment based on mutual agreement.</p>
+                        
+                        <h3 class="font-bold text-slate-800 mt-4">6. Risk Factors & 7. Conflict of Interest:</h3>
+                        <p>Investments in securities markets are inherently risky and subject to market dynamics. Registration granted by SEBI, and certification from NISM in no way guarantee the performance of the intermediary. The Research Analyst adheres to SEBI's guidelines on the disclosure and mitigation of actual or potential conflicts of interest.</p>
+                        
+                        <h3 class="font-bold text-slate-800 mt-4">8. Termination of service and refund of fees:</h3>
+                        <p>The Research Analyst reserves the right to suspend or terminate the provision of research services to clients in the event of suspension or cancellation of its registration with SEBI. In case the certificate of registration is suspended for a period exceeding sixty (60) days or is cancelled, the Research Analyst shall refund the subscription fees to the client on a pro-rata basis.</p>
+                    </section>
+
+                    <section id="sec-5">
+                        <h3 class="font-bold text-slate-800">9. Grievance redressal and dispute resolution:</h3>
+                        <p>For any support-related grievances, clients must email their concerns to info@niiveshneeti.com. If unresolved, grievances must be escalated to the designated grievance officer within 7 business days.</p>
+                        <p class="mt-2 font-semibold text-slate-800">Amit Kori: amitkkori@gmail.com | Website: https://niiveshneeti.com</p>
+
+                        <h3 class="font-bold text-slate-800 mt-4">10. Use of Research Reports & 11. Mandatory Notice:</h3>
+                        <p>All research reports are confidential and intended solely for the subscriber. Unauthorized distribution is strictly prohibited. Clients shall be requested to go through Do’s and Don’ts while dealing with RA as specified in SEBI master circular no. SEBI/HO/MIRSD-POD-1/P/CIR/2024/49.</p>
+                    </section>
+
+                    <section id="sec-6">
+                        <h3 class="font-bold text-slate-800">12. Most Important Terms and Conditions (MITC) As per Annexure A:</h3>
+                        <ul class="list-decimal pl-5 space-y-2">
+                            <li>These terms and conditions, and consent thereon are for the research services provided by the Research Analyst (RA) and RA cannot execute/carry out any trade (purchase/sell transaction) on behalf of the client.</li>
+                            <li>The fee charged by RA to the client will be subject to the maximum of amount prescribed by SEBI (currently Rs 1,51,000/- per annum per family of client). Cash payment is not allowed.</li>
+                            <li>The RA cannot guarantee returns, profits, accuracy, or risk-free investments from the use of the RA’s research services.</li>
+                            <li>The RA shall never ask for the client’s login credentials and OTPs for the client’s Trading Account Demat Account and Bank Account. Never share such information with anyone including RA.</li>
+                            <li>For grievances, if resolution is unsatisfactory, the client can lodge grievances through SEBI’s SCORES platform at www.scores.sebi.gov.in or Smart ODR portal at https://smartodr.in.</li>
+                        </ul>
+                    </section>
+
+                    <section id="sec-7">
+                        <h3 class="font-bold text-slate-800">13. Other Terms & Conditions:</h3>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>Investments in the securities market are subject to market risks. Read all the related documents carefully before investing.</li>
+                            <li>Recommendations provided may not always result in profits. Investing in equity involves uncertainties.</li>
+                            <li>Past performance does not ensure future performance.</li>
+                            <li>There is a possibility of communication failures via electronic means such as E-mail/ WhatsApp messages etc., which may be beyond our control.</li>
+                        </ul>
+                    </section>
+
+                    <section id="sec-8">
+                        <h3 class="font-bold text-slate-800">14. Disclosure Regarding Use of Artificial Intelligence (AI) Tools:</h3>
+                        <p>In compliance with Regulation 19(vii) and Regulation 24(7) of the SEBI (Research Analyst) Regulations, we hereby declare that no Artificial Intelligence (AI) tools are currently used in the preparation, generation, or distribution of our research services. All research outputs and recommendations are derived through human analysis and traditional research methodologies.</p>
+                        <p class="mt-4 font-bold text-slate-800">Amit Kori<br>SEBI Registered Research Analyst – INH000016533</p>
+                    </section>
+                </div>
+
+                <hr class="border-slate-200 my-8">
+
+                <!-- Signature Pad Block matching screenshot -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-800 mb-2">Add Your Signature <span class="text-red-500">*</span></label>
+                    <div class="border-2 border-dashed border-slate-300 rounded-lg bg-slate-50 relative h-48">
+                        <canvas id="signature-pad" class="w-full h-full block cursor-crosshair relative z-10"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50" id="sig-overlay">
+                            <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <span class="font-semibold text-slate-600">Draw your signature here</span>
+                            <span class="text-xs text-slate-500">Use mouse or touch</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-2 flex justify-between items-center">
+                        <button type="button" id="clearBtn" class="text-xs font-semibold text-slate-600 hover:text-slate-900 border border-slate-300 px-3 py-1.5 rounded bg-white transition-colors flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            Clear Signature
+                        </button>
+                        <span id="sigStatus" class="text-xs font-bold text-slate-400">Unsigned</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-[#10b981] hover:bg-[#059669] text-white font-bold py-3.5 px-4 rounded-md shadow transition-colors text-lg">
+                    I Accept & Submit
+                </button>
+
+            </form>
         </main>
     </div>
 
     <script>
-        // Signature Pad Logic
+        // Setup Signature Pad
         const canvas = document.getElementById('signature-pad');
-        const signaturePad = new SignaturePad(canvas);
+        const signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255, 255, 255, 0)' });
 
-        // Simple Scrollspy for Sidebar
+        function resizeCanvas() {
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
+            signaturePad.clear();
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        const overlay = document.getElementById('sig-overlay');
+        const status = document.getElementById('sigStatus');
+
+        signaturePad.addEventListener("beginStroke", () => {
+            overlay.style.display = 'none';
+            status.innerText = 'Signed';
+            status.className = 'text-xs font-bold text-green-500';
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            signaturePad.clear();
+            overlay.style.display = 'flex';
+            status.innerText = 'Unsigned';
+            status.className = 'text-xs font-bold text-slate-400';
+        });
+
+        // Sidebar Navigation Highlight Logic
         const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('#sidebar-nav a');
+        const navLinks = document.querySelectorAll('.sidebar-link');
 
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= sectionTop - 150) {
+                if (scrollY >= sectionTop - 150) {
                     current = section.getAttribute('id');
                 }
             });
 
             navLinks.forEach(link => {
-                link.classList.remove('active-sidebar');
+                link.classList.remove('active');
                 if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active-sidebar');
+                    link.classList.add('active');
                 }
             });
         });
