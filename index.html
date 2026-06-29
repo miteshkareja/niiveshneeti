@@ -1,25 +1,422 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niiveshneeti | Home</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Niiveshneeti | Invest with Neeti, Grow with Clarity</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Scrollbar for Dark Theme */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #040b1c; }
+        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+        /* Animation Classes */
+        .animate-on-scroll { 
+            opacity: 0; 
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; 
+            will-change: opacity, transform;
+        }
+        .fade-in-up { transform: translateY(40px); }
+        .slide-in-left { transform: translateX(-50px); }
+        .slide-in-right { transform: translateX(50px); }
+        
+        /* Active Animation State */
+        .is-visible { 
+            opacity: 1; 
+            transform: translate(0, 0) !important; 
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900 antialiased font-sans">
-    <header class="bg-white border-b border-gray-200">
-        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="text-xl font-bold tracking-wider text-blue-900">NIIVESHNEETI</div>
-            <nav class="flex space-x-6 text-sm font-medium text-gray-600">
-                <a href="index.html" class="text-blue-600 border-b-2 border-blue-600 pb-1">Home</a>
-                <a href="agreement.html" class="hover:text-blue-600 transition-colors">Consent Page</a>
+<body class="bg-[#040b1c] text-slate-300 font-sans overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <header class="border-b border-indigo-900/50 bg-[#040b1c]/90 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="niiveshlogo.png" alt="Niiveshneeti Logo" class="h-10" onerror="this.src='https://via.placeholder.com/150x40/040b1c/ffffff?text=NIIVESHNEETI'">
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-bold text-white">
+                <a href="#pricing" class="hover:text-blue-400 transition-colors">Index Options Packages</a>
+                <a href="agreement.html" class="hover:text-blue-400 transition-colors">User Consent</a>
+                <a href="#contact" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg shadow-lg shadow-blue-900/50 transition-all">Contact Us</a>
             </nav>
         </div>
     </header>
-    <main class="max-w-2xl mx-auto mt-20 text-center px-4">
-        <h1 class="text-3xl font-bold text-gray-800">Welcome to Niiveshneeti</h1>
-        <p class="text-gray-500 mt-2 mb-6">Our main corporate layout is currently preparing configuration rules.</p>
-        <a href="agreement.html" class="bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-800 inline-block shadow-xs">Go to Consent Page Form</a>
-    </main>
+
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="animate-on-scroll slide-in-left">
+                <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
+                    Invest with Neeti (Plan), <br>
+                    <span class="text-gradient">Grow with Clarity.</span>
+                </h1>
+                <p class="text-lg text-slate-400 mb-8 leading-relaxed">
+                    We offer handpicked stock and mutual fund strategies designed by a SEBI Registered Research Analyst — through time-tested strategies and disciplined research and gives clarity on what to buy, when to exit, and how to grow your capital.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#services" class="bg-gradient-to-r from-blue-600 to-green-500 hover:from-blue-500 hover:to-green-400 text-white font-bold py-3.5 px-8 rounded-lg shadow-lg shadow-blue-900/30 transition-transform hover:-translate-y-1">Start Investing</a>
+                </div>
+            </div>
+            
+            <div class="animate-on-scroll slide-in-right relative">
+                <!-- Decorative Graphic/Image Placeholder -->
+                <div class="w-full h-[400px] rounded-2xl bg-gradient-to-tr from-indigo-900/40 to-blue-900/20 border border-indigo-500/30 flex items-center justify-center shadow-2xl relative overflow-hidden">
+                    <i class="fa-solid fa-chart-line text-8xl text-blue-500/50"></i>
+                    <!-- Simulated Floating Chart Elements -->
+                    <div class="absolute bottom-10 left-10 w-24 h-32 bg-green-500/20 border border-green-500/50 rounded-t-sm"></div>
+                    <div class="absolute bottom-10 left-40 w-24 h-48 bg-green-500/20 border border-green-500/50 rounded-t-sm"></div>
+                    <div class="absolute bottom-10 right-20 w-24 h-20 bg-red-500/20 border border-red-500/50 rounded-t-sm"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Tickers -->
+    <section class="py-8 bg-[#0a1128] border-y border-indigo-900/50">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-card p-6 rounded-xl animate-on-scroll fade-in-up delay-100 flex items-center justify-between group hover:bg-white/10 transition-colors">
+                <div>
+                    <h3 class="text-white font-bold text-lg">Nifty 50</h3>
+                    <p class="text-xs text-slate-400">India’s leading stock market index.</p>
+                </div>
+                <div class="text-green-400 font-black text-xl">24,850+</div>
+            </div>
+            <div class="glass-card p-6 rounded-xl animate-on-scroll fade-in-up delay-200 flex items-center justify-between group hover:bg-white/10 transition-colors">
+                <div>
+                    <h3 class="text-white font-bold text-lg">Sensex</h3>
+                    <p class="text-xs text-slate-400">Tracks top performing Indian companies.</p>
+                </div>
+                <div class="text-green-400 font-black text-xl">81,300+</div>
+            </div>
+            <div class="glass-card p-6 rounded-xl animate-on-scroll fade-in-up delay-300 flex items-center justify-between group hover:bg-white/10 transition-colors">
+                <div>
+                    <h3 class="text-white font-bold text-lg">Bank Nifty</h3>
+                    <p class="text-xs text-slate-400">India’s major banking sector index.</p>
+                </div>
+                <div class="text-green-400 font-black text-xl">54,200+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services -->
+    <section id="services" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll fade-in-up">
+                <h2 class="text-blue-500 font-bold tracking-widest uppercase text-sm mb-2">Our Services</h2>
+                <h3 class="text-3xl md:text-4xl font-black text-white">Professional Stock Market Solutions</h3>
+                <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Expert advisory and investment services designed for Indian investors.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Service 1 -->
+                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-left border-t-4 border-t-blue-500 hover:-translate-y-2 transition-transform duration-300">
+                    <i class="fa-solid fa-chart-pie text-3xl text-blue-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-4">Stock Trading Insights</h4>
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Fundamentally strong, technically timed</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Handpicked stock recommendations</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Clear Buy, Hold, Sell calls</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Real-time updates & performance tracking</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 border-t border-slate-700 pt-4">Whether you're a beginner or seasoned investor, our research helps you build long-term wealth.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-right border-t-4 border-t-purple-500 hover:-translate-y-2 transition-transform duration-300">
+                    <i class="fa-solid fa-bolt text-3xl text-purple-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-4">Option Trading Strategies</h4>
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Trade smarter, not harder</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Intraday & positional option trade ideas</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Defined entry, stop-loss & target</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> NIFTY, BANKNIFTY focused strategies</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 border-t border-slate-700 pt-4">Maximize reward while keeping risks in check, with expert-led trading logic.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-left border-t-4 border-t-yellow-500 hover:-translate-y-2 transition-transform duration-300">
+                    <i class="fa-solid fa-coins text-3xl text-yellow-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-4">Commodity Market Calls</h4>
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Tap into MCX opportunities with precision</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Gold, Silver, Crude and Natural Gas</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Intraday and short-term setups</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Technical and sentiment-driven signals</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 border-t border-slate-700 pt-4">Stay updated on global cues and market momentum—act with clarity and confidence.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-right border-t-4 border-t-green-500 hover:-translate-y-2 transition-transform duration-300">
+                    <i class="fa-solid fa-seedling text-3xl text-green-400 mb-4"></i>
+                    <h4 class="text-xl font-bold text-white mb-4">Mutual Fund Recommendations</h4>
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Curated funds across Equity, Debt, Hybrid & Thematic</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Ratings, risk levels, and sector allocation explained</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Regular updates on what to buy, hold, or exit</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Simple, effective, and always goal-aligned</li>
+                    </ul>
+                    <p class="text-xs text-slate-400 border-t border-slate-700 pt-4">SIP or lumpsum? We've got your portfolio covered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-20 bg-[#0a1128]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll fade-in-up">
+                <h3 class="text-3xl md:text-4xl font-black text-white">Why Choose Us</h3>
+                <p class="text-slate-400 mt-4 max-w-2xl mx-auto">SEBI Registered Research | Intraday & Expiry Strategies | Real-Time Support</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-6 animate-on-scroll fade-in-up delay-100">
+                    <div class="w-16 h-16 bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-500/30 text-blue-400 text-2xl">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+                    <h4 class="text-white font-bold mb-2">Built for Disciplined Traders</h4>
+                    <p class="text-xs text-slate-400">Structured, research-backed guidance for consistent trading.</p>
+                </div>
+                <div class="p-6 animate-on-scroll fade-in-up delay-200">
+                    <div class="w-16 h-16 bg-indigo-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-indigo-500/30 text-indigo-400 text-2xl">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h4 class="text-white font-bold mb-2">Research Based</h4>
+                    <p class="text-xs text-slate-400">Every trade setup backed by in-depth market research and technical analysis.</p>
+                </div>
+                <div class="p-6 animate-on-scroll fade-in-up delay-300">
+                    <div class="w-16 h-16 bg-green-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-500/30 text-green-400 text-2xl">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <h4 class="text-white font-bold mb-2">Fast Execution</h4>
+                    <p class="text-xs text-slate-400">Real-time alerts with precise entry, target and stop-loss for quick action.</p>
+                </div>
+                <div class="p-6 animate-on-scroll fade-in-up delay-400">
+                    <div class="w-16 h-16 bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-purple-500/30 text-purple-400 text-2xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h4 class="text-white font-bold mb-2">Direct Support</h4>
+                    <p class="text-xs text-slate-400">Priority support directly on WhatsApp during live market hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 animate-on-scroll fade-in-up">
+                <h3 class="text-3xl md:text-4xl font-black text-white">Pricing Plan</h3>
+                <p class="text-slate-400 mt-4 max-w-2xl mx-auto">Professional index trading strategies based on market research & analysis</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Silver -->
+                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-left">
+                    <h4 class="text-2xl font-bold text-slate-300 mb-2">Index Options Silver</h4>
+                    <p class="text-sm text-slate-400 mb-6 h-10">Suitable for beginners focusing on a structured trading approach.</p>
+                    <div class="text-4xl font-black text-white mb-6">₹75k</div>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8 border-t border-slate-700 pt-6">
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> 1 Research-Based Trade Setup Daily</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Entry, Target & Stop Loss Levels</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Intraday Market Insights</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Basic Support During Market Hours</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Educational Trade Understanding</li>
+                        <li><i class="fa-solid fa-triangle-exclamation text-yellow-500 mr-2"></i> Risk Level: High</li>
+                    </ul>
+                    <a href="agreement.html" class="block text-center w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition-colors border border-slate-600">Get Started</a>
+                </div>
+
+                <!-- Gold (Recommended) -->
+                <div class="bg-gradient-to-b from-blue-900/80 to-[#040b1c] border-2 border-blue-500 p-8 rounded-2xl animate-on-scroll fade-in-up relative transform md:-translate-y-4 shadow-2xl shadow-blue-900/50">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Recommended</div>
+                    <h4 class="text-2xl font-bold text-yellow-500 mb-2">Index Options Gold</h4>
+                    <p class="text-sm text-slate-300 mb-6 h-10">Best suited for active traders aiming for consistency.</p>
+                    <div class="text-4xl font-black text-white mb-6">₹1.5L</div>
+                    <ul class="space-y-3 text-sm text-white mb-8 border-t border-blue-800 pt-6">
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Up to 2 Research Trade Setups Daily</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Coverage: BankNifty, Nifty & Finnifty</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Entry, Exit & Risk Levels with Logic</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Weekly Expiry Strategy Calls</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Intraday + Short-Term Opportunities</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Priority WhatsApp Alerts</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i> Live Market Tracking Support</li>
+                        <li><i class="fa-solid fa-triangle-exclamation text-red-400 mr-2"></i> Risk Level: High to Very High</li>
+                    </ul>
+                    <a href="agreement.html" class="block text-center w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg shadow-blue-900/50">Get Started</a>
+                </div>
+
+                <!-- Platinum -->
+                <div class="glass-card p-8 rounded-2xl animate-on-scroll slide-in-right">
+                    <h4 class="text-2xl font-bold text-slate-300 mb-2">Index Options Platinum</h4>
+                    <p class="text-sm text-slate-400 mb-6 h-10">Designed for experienced traders with higher capital exposure.</p>
+                    <div class="text-4xl font-black text-white mb-6">₹1.77L</div>
+                    <ul class="space-y-3 text-sm text-slate-300 mb-8 border-t border-slate-700 pt-6">
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Up to 3 Research Trade Setups Daily</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> All Index Coverage (Nifty, BankNifty, Sensex)</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Expiry Strategy Planning</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Volatility-Based Opportunities</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Live Market Observation</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Priority Dedicated Support</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> Trading Psychology Insights</li>
+                        <li><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i> Risk Level: High to Very High</li>
+                    </ul>
+                    <a href="agreement.html" class="block text-center w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-lg transition-colors border border-slate-600">Get Started</a>
+                </div>
+            </div>
+            
+            <p class="text-center text-xs text-slate-500 mt-8 max-w-3xl mx-auto animate-on-scroll fade-in-up">
+                Disclaimer: We are SEBI Registered Research Analysts. All recommendations are based on market research & analysis. Market investments are subject to risk. No guaranteed returns. Past performance is not indicative of future results.
+            </p>
+        </div>
+    </section>
+
+    <!-- Testimonials Placeholder -->
+    <section class="py-20 bg-[#0a1128] border-t border-indigo-900/50">
+        <div class="max-w-7xl mx-auto px-6 text-center animate-on-scroll fade-in-up">
+            <h3 class="text-3xl md:text-4xl font-black text-white mb-4">Client Testimonials</h3>
+            <p class="text-slate-400 mb-12">Trusted by Investors Across India. See what our clients say about their experience with NiiveshNeeti.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Add testimonial cards here in the future -->
+                <div class="glass-card p-6 rounded-xl text-left border-l-4 border-l-green-500 opacity-70">
+                    <div class="flex text-yellow-400 mb-3 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-sm italic text-slate-300">"Highly disciplined research. The entry and exit points are precise."</p>
+                    <p class="text-xs font-bold text-white mt-4">- Verified Client</p>
+                </div>
+                 <div class="glass-card p-6 rounded-xl text-left border-l-4 border-l-blue-500 opacity-70">
+                    <div class="flex text-yellow-400 mb-3 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-sm italic text-slate-300">"The clear communication during live market hours helps a lot in managing risk."</p>
+                    <p class="text-xs font-bold text-white mt-4">- Verified Client</p>
+                </div>
+                 <div class="glass-card p-6 rounded-xl text-left border-l-4 border-l-purple-500 opacity-70">
+                    <div class="flex text-yellow-400 mb-3 text-xs"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                    <p class="text-sm italic text-slate-300">"Great mutual fund selection for long-term SIP holding."</p>
+                    <p class="text-xs font-bold text-white mt-4">- Verified Client</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-[#030814] pt-16 pb-8 border-t border-indigo-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Branding -->
+                <div class="md:col-span-1">
+                    <img src="niiveshlogo.png" alt="Niiveshneeti" class="h-10 mb-6" onerror="this.src='https://via.placeholder.com/150x40/040b1c/ffffff?text=NIIVESHNEETI'">
+                    <p class="text-slate-400 text-sm">Invest with Neeti (Plan), Grow with Clarity.</p>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Contact Us</h4>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><i class="fa-solid fa-phone mr-2 text-blue-500"></i> +91 88798 57949</li>
+                        <li><i class="fa-solid fa-envelope mr-2 text-blue-500"></i> support@niiveshneeti.com</li>
+                        <li><i class="fa-solid fa-clock mr-2 text-blue-500"></i> Mon to Sat, 9:00AM to 6:00PM</li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-slate-400 flex flex-col">
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Disclaimer</a>
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Disclosure</a>
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Terms & Condition</a>
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Privacy Policy</a>
+                    </ul>
+                </div>
+
+                <!-- Redressal -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Help & Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-400 flex flex-col">
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Grievance Redressal</a>
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Complaints</a>
+                        <a href="agreement.html" class="hover:text-blue-400 transition-colors">Investor Charter</a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEBI Disclaimers Block -->
+            <div class="bg-white/5 border border-white/10 rounded-xl p-6 mb-8 text-[11px] text-slate-400 space-y-3 leading-relaxed">
+                <p><strong>*Disclaimer:</strong> "Registration granted by SEBI and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors."</p>
+                <p><strong>*Disclaimer:</strong> For security/securities displayed in the website and in the advertisement – "The securities quoted (If any) on our website or in any of our advertisement are for illustration only and are not recommendatory."</p>
+                <p><strong>*Standard warning:</strong> "Investment in securities market are subject to market risks. Read all the related documents carefully before investing."</p>
+                <p><strong>*Mandatory notice:</strong> "Clients shall be requested to go through Do’s and Don’ts while dealing with RA as specified in SEBI master circular no. SEBI/HO/MIRSD-POD- 1/P/CIR/2024/49 dated May 21, 2024 or as may be specified by SEBI from time to time."</p>
+                
+                <div class="border-t border-white/10 pt-3 mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="font-bold text-white mb-1">SEBI Registered Research Analyst Details:</p>
+                        <p>Registered Name: Amit Kori</p>
+                        <p>Type of registration: Individual</p>
+                        <p>Registration No.: INH000016533</p>
+                        <p>Validity: Nov 22, 2027</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-white mb-1">Nearest SEBI Office Address:</p>
+                        <p>SEBI Bhavan BKC, Plot No.C4-A, ‘G’ Block</p>
+                        <p>Bandra-Kurla Complex, Bandra (East),</p>
+                        <p>Mumbai – 400051, Maharashtra</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-xs text-slate-500 border-t border-indigo-900/30 pt-6">
+                <p>Niiveshneeti ©2026 All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Animation Logic Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Trigger when 15% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Stop observing once the animation has triggered
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
