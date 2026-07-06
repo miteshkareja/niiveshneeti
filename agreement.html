@@ -334,6 +334,39 @@
             return 'JPEG';
         }
 
+        function loadImageAsDataURL(src) {
+            return new Promise((resolve) => {
+                if (!src) {
+                    resolve('');
+                    return;
+                }
+
+                const img = new Image();
+                img.crossOrigin = 'Anonymous';
+
+                img.onload = function() {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0);
+                        resolve(canvas.toDataURL('image/png'));
+                    } catch (e) {
+                        resolve('');
+                    }
+                };
+
+                img.onerror = function() {
+                    resolve('');
+                };
+
+                img.src = src;
+            });
+        }
+
         function pdfSections() {
             return [
                 {
@@ -432,13 +465,15 @@
             ];
         }
 
-        function generateAgreementPdf() {
+        async function generateAgreementPdf() {
             const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
             const pageWidth = pdf.internal.pageSize.getWidth();
             const pageHeight = pdf.internal.pageSize.getHeight();
             const margin = 14;
             const usableWidth = pageWidth - margin * 2;
             let y = 14;
+
+            const logoData = await loadImageAsDataURL('indexneeti_logo.png');
 
             function ensureSpace(required) {
                 if (y + required > pageHeight - 18) {
@@ -452,23 +487,35 @@
                 pdf.setFillColor(255, 255, 255);
                 pdf.rect(0, 0, pageWidth, pageHeight, 'F');
 
-                pdf.setDrawColor(15, 44, 89);
-                pdf.setLineWidth(0.6);
+                if (logoData) {
+                    try {
+                        pdf.addImage(logoData, 'PNG', margin, y - 2, 36, 16);
+                    } catch (e) {}
+                }
 
                 pdf.setFont('times', 'bold');
                 pdf.setFontSize(firstPage ? 18 : 14);
                 pdf.setTextColor(15, 44, 89);
-                pdf.text('INDEX NEETI', pageWidth / 2, y, { align: 'center' });
+                pdf.text('INDEX NEETI', pageWidth / 2 + 8, y + 4, { align: 'center' });
 
-                y += firstPage ? 6 : 5;
+                y += firstPage ? 7 : 6;
 
                 pdf.setFont('helvetica', 'normal');
-                pdf.setFontSize(9);
-                pdf.setTextColor(90, 90, 90);
-                pdf.text('SEBI Registered Research Analyst | Reg. No. INH000016533', pageWidth / 2, y, { align: 'center' });
-
+                pdf.setFontSize(8.8);
+                pdf.setTextColor(80, 80, 80);
+                pdf.text('SEBI Registered Research Analyst Details:', pageWidth / 2 + 8, y, { align: 'center' });
+                y += 4.2;
+                pdf.text('Registered Name: Amit Kori', pageWidth / 2 + 8, y, { align: 'center' });
+                y += 4.2;
+                pdf.text('Type of registration: Individual', pageWidth / 2 + 8, y, { align: 'center' });
+                y += 4.2;
+                pdf.text('Registration No.: INH000016533', pageWidth / 2 + 8, y, { align: 'center' });
+                y += 4.2;
+                pdf.text('Support Contact: 9137932216', pageWidth / 2 + 8, y, { align: 'center' });
                 y += 4.5;
 
+                pdf.setDrawColor(15, 44, 89);
+                pdf.setLineWidth(0.6);
                 pdf.line(margin, y, pageWidth - margin, y);
                 y += 6;
 
@@ -531,13 +578,15 @@
             }
 
             function addBox(title, bullets) {
-                const startY = y;
                 const contentLines = [];
                 bullets.forEach(b => {
                     contentLines.push(...pdf.splitTextToSize(b, usableWidth - 14));
                 });
+
                 const heightNeeded = 10 + (contentLines.length * 5) + 8;
                 ensureSpace(heightNeeded);
+
+                const startY = y;
 
                 pdf.setFillColor(248, 250, 252);
                 pdf.setDrawColor(203, 213, 225);
@@ -564,8 +613,14 @@
             }
 
             function addTableRow(label, value) {
-                ensureSpace(10);
-                const rowH = 9;
+                const valueText = String(value || '—');
+                pdf.setFont('helvetica', 'normal');
+                pdf.setFontSize(10);
+                const valueLines = pdf.splitTextToSize(valueText, usableWidth - 48 - 4);
+                const rowH = Math.max(9, valueLines.length * 4.5 + 3);
+
+                ensureSpace(rowH);
+
                 const labelW = 48;
                 const valueW = usableWidth - labelW;
 
@@ -582,9 +637,7 @@
 
                 pdf.setFont('helvetica', 'normal');
                 pdf.setTextColor(17, 24, 39);
-                const v = String(value || '—');
-                const lines = pdf.splitTextToSize(v, valueW - 4);
-                pdf.text(lines[0] || '—', margin + labelW + 2, y + 5.8);
+                pdf.text(valueLines, margin + labelW + 2, y + 5.8);
 
                 y += rowH;
             }
@@ -622,7 +675,7 @@
             }
 
             function addSignatureBlock(clientName) {
-                ensureSpace(48);
+                ensureSpace(44);
 
                 pdf.setFont('helvetica', 'bold');
                 pdf.setFontSize(11);
@@ -635,26 +688,24 @@
                     { font: 'times', style: 'normal', size: 11, lineHeight: 5 }
                 );
 
-                ensureSpace(30);
+                ensureSpace(26);
 
                 const sigY = y + 2;
                 const sigData = signaturePad.toDataURL('image/png');
 
-                pdf.setDrawColor(15, 44, 89);
-                pdf.line(margin, sigY + 18, margin + 70, sigY + 18);
-                pdf.line(margin + 100, sigY + 18, margin + 170, sigY + 18);
-
                 try {
-                    pdf.addImage(sigData, 'PNG', margin + 2, sigY - 2, 50, 18);
+                    pdf.addImage(sigData, 'PNG', margin + 6, sigY - 2, 38, 16);
                 } catch (e) {}
+
+                pdf.setDrawColor(15, 44, 89);
+                pdf.line(margin, sigY + 16, margin + 86, sigY + 16);
 
                 pdf.setFont('helvetica', 'bold');
                 pdf.setFontSize(9.5);
                 pdf.setTextColor(51, 65, 85);
-                pdf.text(`${clientName} - Client Signature`, margin, sigY + 23);
-                pdf.text(`Date: ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}`, margin + 100, sigY + 23);
+                pdf.text(`${clientName} - Client Signature`, margin, sigY + 21);
 
-                y = sigY + 30;
+                y = sigY + 28;
             }
 
             drawPageHeader(true);
@@ -750,9 +801,8 @@
             clearBtn.style.display = 'none';
 
             try {
-                const pdf = generateAgreementPdf();
+                const pdf = await generateAgreementPdf();
 
-                // Optional local download for testing before webhook
                 pdf.save('IndexNeeti_Agreement.pdf');
 
                 const pdfDataUri = pdf.output('datauristring');
