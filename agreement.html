@@ -4,30 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Agreement | Index Neeti</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Signature Pad -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-    <!-- HTML2PDF for generating the PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        /* Custom scrollbar for the page */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        
-        /* Active state for the left sidebar */
         .sidebar-link.active {
             background-color: #f8fafc;
             border-left-color: #eab308;
             color: #1e3a8a;
             font-weight: 700;
         }
+
+        /* ============================================================
+           PRINT / PDF TEMPLATE STYLES — used ONLY by the hidden
+           #pdf-template element that html2pdf renders. This is what
+           makes the PDF look like a real signed agreement instead of
+           a screenshot of the dashboard.
+        ============================================================ */
+        #pdf-template {
+            position: absolute;
+            top: 0;
+            left: -99999px;
+            width: 794px; /* A4 @ 96dpi */
+            background: #ffffff;
+            color: #111827;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+        .pdf-page-inner { padding: 46px 50px; }
+        .pdf-letterhead {
+            text-align: center;
+            border-bottom: 3px solid #0f2c59;
+            padding-bottom: 14px;
+            margin-bottom: 22px;
+        }
+        .pdf-letterhead h1 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0f2c59;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+        .pdf-letterhead .sub {
+            font-size: 11px;
+            color: #475569;
+            margin-top: 4px;
+            font-family: Arial, sans-serif;
+        }
+        .pdf-doctitle {
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 18px 0 4px;
+            color: #0f2c59;
+        }
+        .pdf-docmeta {
+            text-align: center;
+            font-size: 10px;
+            color: #64748b;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+        .pdf-section { margin-bottom: 16px; page-break-inside: avoid; }
+        .pdf-section h3 {
+            font-size: 12.5px;
+            font-weight: bold;
+            color: #0f2c59;
+            margin: 0 0 6px;
+        }
+        .pdf-section p, .pdf-section li { text-align: justify; margin: 0 0 6px; }
+        .pdf-section ul { margin: 6px 0 6px 18px; padding: 0; }
+        .pdf-hr { border: none; border-top: 1px solid #cbd5e1; margin: 18px 0; }
+
+        .pdf-kyc-table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 11.5px; margin-bottom: 18px; }
+        .pdf-kyc-table td { border: 1px solid #d1d5db; padding: 7px 10px; vertical-align: top; }
+        .pdf-kyc-table td.label { width: 32%; font-weight: bold; background: #f8fafc; color: #334155; }
+
+        .pdf-exhibits { display: flex; gap: 12px; margin-bottom: 18px; page-break-inside: avoid; }
+        .pdf-exhibit { flex: 1; border: 1px solid #cbd5e1; padding: 6px; text-align: center; }
+        .pdf-exhibit img { width: 100%; height: 110px; object-fit: contain; border: 1px solid #e2e8f0; }
+        .pdf-exhibit span { display: block; font-size: 9.5px; font-family: Arial, sans-serif; color: #475569; margin-top: 4px; }
+
+        .pdf-sign-block { margin-top: 26px; page-break-inside: avoid; }
+        .pdf-sign-grid { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
+        .pdf-sign-box { flex: 1; }
+        .pdf-sign-box img { height: 70px; border-bottom: 1px solid #0f2c59; display: block; }
+        .pdf-sign-line { border-bottom: 1px solid #0f2c59; height: 70px; }
+        .pdf-sign-box .cap { font-size: 10.5px; font-family: Arial, sans-serif; color: #334155; margin-top: 4px; font-weight: bold; }
+
+        .pdf-footer {
+            margin-top: 28px;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 8px;
+            font-size: 9px;
+            font-family: Arial, sans-serif;
+            color: #94a3b8;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="bg-[#040b1c] text-slate-800 font-sans pb-20">
 
-    <!-- Dark Theme Header -->
+    <!-- Dark Theme Header (unchanged screen UI) -->
     <header class="bg-[#040b1c] border-b border-slate-800 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <img src="indexneeti_logo.png" alt="Index Neeti" class="h-10" onerror="this.src='https://via.placeholder.com/150x40/040b1c/ffffff?text=INDEX+NEETI'">
@@ -41,8 +125,8 @@
     </header>
 
     <div class="max-w-7xl mx-auto px-4 mt-8 flex flex-col md:flex-row gap-6">
-        
-        <!-- Left Sidebar Navigation -->
+
+        <!-- Left Sidebar Navigation (unchanged) -->
         <aside class="w-full md:w-64 shrink-0">
             <div class="sticky top-28 bg-white rounded-lg shadow-md overflow-hidden border border-slate-200">
                 <div class="bg-[#0f2c59] text-white p-3 font-bold flex items-center gap-2">
@@ -63,9 +147,9 @@
             </div>
         </aside>
 
-        <!-- Main Content Area -->
+        <!-- Main Content Area (unchanged screen UI) -->
         <main id="pdf-agreement-area" class="flex-1 bg-white rounded-lg shadow-md border border-slate-200 p-6 md:p-8">
-            
+
             <div class="flex items-start gap-4 mb-8 border-b border-slate-200 pb-6">
                 <div class="bg-[#0f2c59] p-3 rounded-lg text-yellow-400 shrink-0">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -76,9 +160,7 @@
                 </div>
             </div>
 
-            <!-- Legal Document Body -->
             <div class="text-sm text-slate-600 space-y-6">
-                
                 <h2 class="text-lg font-bold text-slate-800 uppercase border-b border-slate-200 pb-2">Scope of Service & Terms</h2>
                 <p class="font-semibold text-slate-800 text-xs">Terms and Conditions As per SEBI Circular (SEBI/HO/MIRSD/ MIRSD-PoD-1/P/CIR/2025/004) Annexure-B</p>
                 <p>By subscribing to the research services, clients acknowledge and agree to the following terms and conditions:</p>
@@ -102,9 +184,8 @@
                         <li>I/We are subscribing to the research services for our own benefits and consumption, and any reliance placed on the research report provided by the research analyst shall be as per our own judgment and assessment of the conclusions contained in the research report.</li>
                         <li><strong>I/We understand that:</strong> Any investment made based on the recommendations in the research report is subject to market risk. Recommendations in the research report do not provide any assurance of returns. There is no recourse to claim any losses incurred on the investments made based on the recommendations.</li>
                     </ul>
-                    
                     <div class="bg-slate-50 p-4 rounded mt-4 border border-slate-200">
-                        <h4 class="font-bold text-slate-800 mb-2">Declaration from Amit Kori (“Research Analyst”):</h4>
+                        <h4 class="font-bold text-slate-800 mb-2">Declaration from Amit Kori ("Research Analyst"):</h4>
                         <ul class="list-decimal pl-4 space-y-1 text-xs">
                             <li>We are duly registered with SEBI as Research Analyst under Registration No. INH0000165333 from 21st Jun 2024; and compliant with the SEBI (Research Analyst) Regulations, 2014.</li>
                             <li>Currently we have valid SEBI registration and have the required qualifications to render services contemplated under RA regulations.</li>
@@ -118,10 +199,8 @@
                 <section id="sec-4">
                     <h3 class="font-bold text-slate-800">5. Consideration and mode of payment:</h3>
                     <p>The client shall duly pay to RA, the agreed fees for the services that RA renders to the client and statutory charges, as applicable. Such fees and statutory charges shall be payable through the specified manner and modes communicated by the Research Analyst. We may collect 1 year advance payment based on mutual agreement.</p>
-                    
                     <h3 class="font-bold text-slate-800 mt-4">6. Risk Factors & 7. Conflict of Interest:</h3>
                     <p>Investments in securities markets are inherently risky and subject to market dynamics. Registration granted by SEBI, and certification from NISM in no way guarantee the performance of the intermediary. The Research Analyst adheres to SEBI's guidelines on the disclosure and mitigation of actual or potential conflicts of interest.</p>
-                    
                     <h3 class="font-bold text-slate-800 mt-4">8. Termination of service and refund of fees:</h3>
                     <p>The Research Analyst reserves the right to suspend or terminate the provision of research services to clients in the event of suspension or cancellation of its registration with SEBI. In case the certificate of registration is suspended for a period exceeding sixty (60) days or is cancelled, the Research Analyst shall refund the subscription fees to the client on a pro-rata basis.</p>
                 </section>
@@ -130,9 +209,8 @@
                     <h3 class="font-bold text-slate-800">9. Grievance redressal and dispute resolution:</h3>
                     <p>For any support-related grievances, clients must email their concerns to info@indexneeti.com. If unresolved, grievances must be escalated to the designated grievance officer within 7 business days.</p>
                     <p class="mt-2 font-semibold text-slate-800">Amit Kori: amitkkori@gmail.com | Website: https://indexneeti.com</p>
-
                     <h3 class="font-bold text-slate-800 mt-4">10. Use of Research Reports & 11. Mandatory Notice:</h3>
-                    <p>All research reports are confidential and intended solely for the subscriber. Unauthorized distribution is strictly prohibited. Clients shall be requested to go through Do’s and Don’ts while dealing with RA as specified in SEBI master circular no. SEBI/HO/MIRSD-POD-1/P/CIR/2024/49.</p>
+                    <p>All research reports are confidential and intended solely for the subscriber. Unauthorized distribution is strictly prohibited. Clients shall be requested to go through Do's and Don'ts while dealing with RA as specified in SEBI master circular no. SEBI/HO/MIRSD-POD-1/P/CIR/2024/49.</p>
                 </section>
 
                 <section id="sec-6">
@@ -140,9 +218,9 @@
                     <ul class="list-decimal pl-5 space-y-2">
                         <li>These terms and conditions, and consent thereon are for the research services provided by the Research Analyst (RA) and RA cannot execute/carry out any trade (purchase/sell transaction) on behalf of the client.</li>
                         <li>The fee charged by RA to the client will be subject to the maximum of amount prescribed by SEBI (currently Rs 1,51,000/- per annum per family of client). Cash payment is not allowed.</li>
-                        <li>The RA cannot guarantee returns, profits, accuracy, or risk-free investments from the use of the RA’s research services.</li>
-                        <li>The RA shall never ask for the client’s login credentials and OTPs for the client’s Trading Account Demat Account and Bank Account. Never share such information with anyone including RA.</li>
-                        <li>For grievances, if resolution is unsatisfactory, the client can lodge grievances through SEBI’s SCORES platform at www.scores.sebi.gov.in or Smart ODR portal at https://smartodr.in.</li>
+                        <li>The RA cannot guarantee returns, profits, accuracy, or risk-free investments from the use of the RA's research services.</li>
+                        <li>The RA shall never ask for the client's login credentials and OTPs for the client's Trading Account Demat Account and Bank Account. Never share such information with anyone including RA.</li>
+                        <li>For grievances, if resolution is unsatisfactory, the client can lodge grievances through SEBI's SCORES platform at www.scores.sebi.gov.in or Smart ODR portal at https://smartodr.in.</li>
                     </ul>
                 </section>
 
@@ -165,15 +243,12 @@
 
             <hr class="border-slate-200 my-8 border-2 border-dashed">
 
-            <!-- The Form Section -->
             <form id="mainForm" class="space-y-8">
-                
                 <div class="bg-[#0f2c59] p-4 rounded-lg">
                     <h2 class="text-lg font-bold text-white">Client Details & KYC Verification</h2>
                     <p class="text-blue-200 text-xs mt-1">By filling out this form, you acknowledge that you have read and agreed to the terms stated above.</p>
                 </div>
 
-                <!-- Client Details & Uploads -->
                 <section id="sec-form" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -182,7 +257,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Mobile No. <span class="text-red-500">*</span></label>
-                            <input type="tel" placeholder="+91 XXXXX XXXXX" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
+                            <input type="tel" id="clientMobile" placeholder="+91 XXXXX XXXXX" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Your Email <span class="text-red-500">*</span></label>
@@ -190,15 +265,14 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Agent / RM Name</label>
-                            <input type="text" placeholder="Leave blank if none" class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
+                            <input type="text" id="agentName" placeholder="Leave blank if none" class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
                         </div>
                     </div>
 
-                    <!-- Aadhaar Row with Image Previews -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Aadhaar Number <span class="text-red-500">*</span></label>
-                            <input type="text" placeholder="Your Aadhaar Number" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
+                            <input type="text" id="aadhaarNumber" placeholder="Your Aadhaar Number" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Upload Aadhaar Front <span class="text-red-500">*</span></label>
@@ -212,11 +286,10 @@
                         </div>
                     </div>
 
-                    <!-- PAN Row with Image Previews -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="md:col-span-2">
                             <label class="block text-xs font-bold text-slate-800 mb-1">PAN Number <span class="text-red-500">*</span></label>
-                            <input type="text" placeholder="Your PAN Number" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm uppercase outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
+                            <input type="text" id="panNumber" placeholder="Your PAN Number" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm uppercase outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Upload PAN Card <span class="text-red-500">*</span></label>
@@ -226,11 +299,9 @@
                     </div>
                 </section>
 
-                <!-- Signature Pad Block -->
                 <div class="pt-4 border-t border-slate-200">
                     <label class="block text-sm font-bold text-slate-800 mb-2">Add Your Signature <span class="text-red-500">*</span></label>
                     <div class="border-2 border-dashed border-slate-300 rounded-lg bg-white relative h-48">
-                        <!-- Solid white background fixes the black box issue in PDFs -->
                         <canvas id="signature-pad" class="w-full h-full block cursor-crosshair relative z-10 bg-white rounded-lg"></canvas>
                         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50" id="sig-overlay">
                             <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
@@ -238,7 +309,6 @@
                             <span class="text-xs text-slate-500">Use mouse or touch</span>
                         </div>
                     </div>
-                    
                     <div class="mt-2 flex justify-between items-center">
                         <button type="button" id="clearBtn" class="text-xs font-semibold text-slate-600 hover:text-slate-900 border border-slate-300 px-3 py-1.5 rounded bg-white transition-colors flex items-center gap-1">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -248,18 +318,17 @@
                     </div>
                 </div>
 
-                <!-- Webhook Submit Button -->
                 <button type="submit" id="submitBtn" class="w-full bg-[#10b981] hover:bg-[#059669] text-white font-bold py-4 px-4 rounded-md shadow transition-colors text-lg uppercase tracking-wide">
                     I Accept & Submit
                 </button>
-
             </form>
         </main>
     </div>
 
-    <!-- Application Logic -->
+    <!-- Hidden print-only template used ONLY for PDF generation -->
+    <div id="pdf-template"><div class="pdf-page-inner" id="pdf-page-inner"></div></div>
+
     <script>
-        // Setup Signature Pad (Forced Solid White Background)
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgb(255, 255, 255)' });
 
@@ -289,7 +358,6 @@
             status.className = 'text-xs font-bold text-slate-400';
         });
 
-        // Image Preview Logic (Displays uploads so PDF can capture them)
         function previewImage(event, previewId) {
             const file = event.target.files[0];
             const preview = document.getElementById(previewId);
@@ -306,7 +374,6 @@
             }
         }
 
-        // Sidebar Navigation Highlight Logic
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.sidebar-link');
 
@@ -318,7 +385,6 @@
                     current = section.getAttribute('id');
                 }
             });
-
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href').includes(current)) {
@@ -327,10 +393,89 @@
             });
         });
 
-        // Generate PDF and Send to Make.com Webhook
+        // ================================================================
+        // Build the clean, light-theme, agreement-style PDF document
+        // (this replaces the old "screenshot the dashboard" approach)
+        // ================================================================
+        function buildPdfHTML() {
+            const val = id => (document.getElementById(id)?.value || '—');
+            const imgSrc = id => {
+                const el = document.getElementById(id);
+                return (el && el.src && !el.classList.contains('hidden')) ? el.src : '';
+            };
+            const sigData = signaturePad.toDataURL('image/png');
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
+
+            const legalHTML = document.querySelector('main .text-sm.text-slate-600').innerHTML;
+
+            return `
+                <div class="pdf-letterhead">
+                    <h1>INDEX NEETI</h1>
+                    <div class="sub">SEBI Registered Research Analyst &nbsp;|&nbsp; Reg. No. INH000016533</div>
+                </div>
+                <div class="pdf-doctitle">Client Service Agreement &amp; Consent Form</div>
+                <div class="pdf-docmeta">Generated electronically on ${dateStr} &nbsp;|&nbsp; Valid under IT Act, 2000</div>
+
+                <div class="pdf-section">${legalHTML.replace(/class="[^"]*"/g, '')}</div>
+
+                <hr class="pdf-hr">
+
+                <div class="pdf-section">
+                    <h3>Client Details &amp; KYC Verification</h3>
+                    <table class="pdf-kyc-table">
+                        <tr><td class="label">Full Name</td><td>${val('clientName')}</td></tr>
+                        <tr><td class="label">Mobile Number</td><td>${val('clientMobile')}</td></tr>
+                        <tr><td class="label">Email Address</td><td>${val('clientEmail')}</td></tr>
+                        <tr><td class="label">Agent / RM Name</td><td>${val('agentName')}</td></tr>
+                        <tr><td class="label">Aadhaar Number</td><td>${val('aadhaarNumber')}</td></tr>
+                        <tr><td class="label">PAN Number</td><td>${val('panNumber').toUpperCase()}</td></tr>
+                    </table>
+                </div>
+
+                <div class="pdf-section">
+                    <h3>Supporting KYC Documents</h3>
+                    <div class="pdf-exhibits">
+                        <div class="pdf-exhibit">
+                            <img src="${imgSrc('preview-aadhaar-front')}">
+                            <span>Exhibit A — Aadhaar (Front)</span>
+                        </div>
+                        <div class="pdf-exhibit">
+                            <img src="${imgSrc('preview-aadhaar-back')}">
+                            <span>Exhibit B — Aadhaar (Back)</span>
+                        </div>
+                        <div class="pdf-exhibit">
+                            <img src="${imgSrc('preview-pan')}">
+                            <span>Exhibit C — PAN Card</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pdf-sign-block">
+                    <h3>Client Declaration &amp; Signature</h3>
+                    <p>I confirm that I have read, understood, and agree to be bound by all terms and conditions stated above, and that the information furnished is true and correct to the best of my knowledge.</p>
+                    <div class="pdf-sign-grid">
+                        <div class="pdf-sign-box">
+                            <img src="${sigData}">
+                            <div class="cap">${val('clientName')} — Client Signature</div>
+                        </div>
+                        <div class="pdf-sign-box">
+                            <div class="pdf-sign-line"></div>
+                            <div class="cap">Date: ${dateStr}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pdf-footer">
+                    This is a system-generated electronic agreement executed via indexneeti.com and is legally valid under the Information Technology Act, 2000.
+                    Document ID: IN-${now.getTime()}
+                </div>
+            `;
+        }
+
         document.getElementById('mainForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            
+
             if (signaturePad.isEmpty()) {
                 alert("Please provide your signature in the signature box before submitting.");
                 return;
@@ -338,43 +483,42 @@
 
             const submitBtn = document.getElementById('submitBtn');
             const clearBtn = document.getElementById('clearBtn');
-            
+
             submitBtn.disabled = true;
             submitBtn.innerText = "Processing Agreement & PDF...";
             clearBtn.style.display = 'none';
 
-            const element = document.getElementById('pdf-agreement-area');
+            // Populate the hidden, print-ready template (light theme, clean layout)
+            document.getElementById('pdf-page-inner').innerHTML = buildPdfHTML();
+            const pdfElement = document.getElementById('pdf-template');
 
-            // CRUCIAL FIX 1: Scroll to the very top so the PDF does not get cut off
-            window.scrollTo(0, 0);
-
-            // CRUCIAL FIX 2: Lock the typed text into the HTML so the PDF camera captures it
-            const textInputs = element.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]');
-            textInputs.forEach(input => {
-                input.setAttribute('value', input.value);
-            });
-
-            // CRUCIAL FIX 3: Added 'scrollY: 0' and 'useCORS: true' to ensure clean captures
             const opt = {
-                margin:       10,
-                filename:     'IndexNeeti_Agreement.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                margin: [10, 8, 12, 8],
+                filename: 'IndexNeeti_Agreement.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', windowWidth: 794 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'avoid-all'], avoid: ['.pdf-section', '.pdf-exhibits', '.pdf-sign-block'] }
             };
 
-            // Generate PDF
-            html2pdf().set(opt).from(element).outputPdf('datauristring').then(function(pdfBase64Data) {
-                
+            html2pdf().set(opt).from(pdfElement).toPdf().get('pdf').then(function (pdf) {
+                const totalPages = pdf.internal.getNumberOfPages();
+                for (let i = 1; i <= totalPages; i++) {
+                    pdf.setPage(i);
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(150);
+                    pdf.text(`Page ${i} of ${totalPages}`, pdf.internal.pageSize.getWidth() - 25, pdf.internal.pageSize.getHeight() - 6);
+                }
+            }).outputPdf('datauristring').then(function (pdfBase64Data) {
+
                 clearBtn.style.display = 'flex';
 
                 const payload = {
                     clientName: document.getElementById('clientName').value,
                     clientEmail: document.getElementById('clientEmail').value,
-                    pdfData: pdfBase64Data.split(',')[1] 
+                    pdfData: pdfBase64Data.split(',')[1]
                 };
 
-                // Send to Make.com
                 fetch("https://hook.eu1.make.com/vrm06mjlw71f6bnololgcm7fdt51suiq", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
