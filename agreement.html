@@ -20,14 +20,18 @@
 
         /* ============================================================
            PRINT / PDF TEMPLATE STYLES — used ONLY by the hidden
-           #pdf-template element that html2pdf renders. This is what
-           makes the PDF look like a real signed agreement instead of
-           a screenshot of the dashboard.
+           #pdf-template element that html2pdf renders.
+           FIX: uses position:fixed + negative z-index instead of
+           left:-99999px, because html2canvas fails to render elements
+           placed far outside real viewport coordinates (caused blank PDF).
         ============================================================ */
         #pdf-template {
-            position: absolute;
+            position: fixed;
             top: 0;
-            left: -99999px;
+            left: 0;
+            z-index: -9999;
+            opacity: 0.001;
+            pointer-events: none;
             width: 794px; /* A4 @ 96dpi */
             background: #ffffff;
             color: #111827;
@@ -395,7 +399,6 @@
 
         // ================================================================
         // Build the clean, light-theme, agreement-style PDF document
-        // (this replaces the old "screenshot the dashboard" approach)
         // ================================================================
         function buildPdfHTML() {
             const val = id => (document.getElementById(id)?.value || '—');
@@ -492,6 +495,12 @@
             document.getElementById('pdf-page-inner').innerHTML = buildPdfHTML();
             const pdfElement = document.getElementById('pdf-template');
 
+            // FIX: bring it into a paintable state right before capture
+            pdfElement.style.zIndex = '9999999';
+            pdfElement.style.opacity = '1';
+            pdfElement.style.left = '0';
+            pdfElement.style.top = '0';
+
             const opt = {
                 margin: [10, 8, 12, 8],
                 filename: 'IndexNeeti_Agreement.pdf',
@@ -509,6 +518,9 @@
                     pdf.setTextColor(150);
                     pdf.text(`Page ${i} of ${totalPages}`, pdf.internal.pageSize.getWidth() - 25, pdf.internal.pageSize.getHeight() - 6);
                 }
+                // restore hidden state after capture completes
+                pdfElement.style.zIndex = '-9999';
+                pdfElement.style.opacity = '0.001';
             }).outputPdf('datauristring').then(function (pdfBase64Data) {
 
                 clearBtn.style.display = 'flex';
