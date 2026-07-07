@@ -69,7 +69,7 @@
                 <div>
                     <h1 class="text-2xl font-bold text-[#0f2c59]">User Consent & Digital Signature</h1>
                     <p class="text-slate-500 text-sm mt-1">
-                        Please read the agreement below, complete all KYC fields, and draw your signature to sign.
+                        Please read the agreement below, complete all KYC fields, verify your email, and draw your signature to sign.
                         This electronic record is a valid and enforceable legal agreement under the Information Technology Act, 2000.
                     </p>
                 </div>
@@ -175,10 +175,28 @@
                             <label class="block text-xs font-bold text-slate-800 mb-1">Mobile No. <span class="text-red-500">*</span></label>
                             <input type="tel" id="clientMobile" placeholder="+91 XXXXX XXXXX" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-800 mb-1">Your Email <span class="text-red-500">*</span></label>
-                            <input type="email" id="clientEmail" placeholder="you@example.com — PDF copy sent here" required class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
+
+                        <div class="md:col-span-2 bg-slate-50 border border-slate-200 p-4 rounded-lg">
+                            <label class="block text-xs font-bold text-slate-800 mb-1">Your Email Address <span class="text-red-500">*</span></label>
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <input type="email" id="clientEmail" placeholder="you@example.com (Verification Code sent here)" required class="flex-1 border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 disabled:bg-slate-100">
+                                <button type="button" id="sendOtpBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-md text-sm transition-colors whitespace-nowrap">Send OTP</button>
+                            </div>
+                            
+                            <div id="otpSection" class="hidden mt-4 flex flex-col sm:flex-row gap-3 items-end">
+                                <div class="flex-1">
+                                    <label class="block text-xs font-bold text-slate-600 mb-1">Enter 6-Digit OTP</label>
+                                    <input type="text" id="otpInput" placeholder="123456" maxlength="6" class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500">
+                                </div>
+                                <button type="button" id="verifyOtpBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-md text-sm transition-colors h-[42px] whitespace-nowrap">Verify OTP</button>
+                            </div>
+
+                            <div id="otpSuccessMsg" class="hidden mt-3 text-sm font-bold text-emerald-600 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Email successfully verified!
+                            </div>
                         </div>
+
                         <div>
                             <label class="block text-xs font-bold text-slate-800 mb-1">Agent / RM Name</label>
                             <input type="text" id="agentName" placeholder="Leave blank if none" class="w-full border border-slate-300 rounded-md p-2.5 text-sm outline-none focus:border-blue-500 bg-slate-50 focus:bg-white">
@@ -248,6 +266,64 @@
 
     <script>
         const { jsPDF } = window.jspdf;
+
+        // --- IP & Location Fetcher ---
+        let userIP = 'Fetching...';
+        let userLocation = 'Fetching...';
+        let generatedOtp = '';
+        let isOtpVerified = false;
+
+        fetch('https://ipapi.co/json/')
+            .then(res => res.json())
+            .then(data => {
+                userIP = data.ip;
+                userLocation = `${data.city}, ${data.region}, ${data.country_name}`;
+            }).catch(() => {
+                userIP = 'Unavailable';
+                userLocation = 'Unavailable';
+            });
+
+        // --- OTP Logic ---
+        document.getElementById('sendOtpBtn').addEventListener('click', async () => {
+            const email = document.getElementById('clientEmail').value;
+            if(!email) return alert('Please enter your email address first.');
+
+            // Generate random 6 digit code in the browser
+            generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            const sendBtn = document.getElementById('sendOtpBtn');
+            sendBtn.innerText = 'Sending...';
+            sendBtn.disabled = true;
+
+            try {
+                // FIRE TO YOUR NEW MAKE.COM OTP WEBHOOK
+                await fetch('https://hook.eu1.make.com/v5v37c7ru09jed7ympyvn4tr62mn520d', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, otp: generatedOtp })
+                });
+
+                sendBtn.innerText = 'OTP Sent';
+                document.getElementById('otpSection').classList.remove('hidden');
+            } catch (error) {
+                alert('Failed to trigger Make.com Webhook.');
+                sendBtn.innerText = 'Send OTP';
+                sendBtn.disabled = false;
+            }
+        });
+
+        document.getElementById('verifyOtpBtn').addEventListener('click', () => {
+            const input = document.getElementById('otpInput').value;
+            if(input === generatedOtp) {
+                isOtpVerified = true;
+                document.getElementById('otpSection').classList.add('hidden');
+                document.getElementById('sendOtpBtn').classList.add('hidden');
+                document.getElementById('clientEmail').disabled = true;
+                document.getElementById('otpSuccessMsg').classList.remove('hidden');
+            } else {
+                alert('Invalid OTP. Please check your email and try again.');
+            }
+        });
 
         const canvas = document.getElementById('signature-pad');
         const signaturePad = new SignaturePad(canvas, {
@@ -713,7 +789,11 @@
             pdf.setFont('helvetica', 'normal');
             pdf.setFontSize(8.5);
             pdf.setTextColor(100, 116, 139);
+            
+            // THE NEW FOOTER WITH OTP AND IP TRACKING
             const footerText = [
+                '*** This agreement has been strictly verified via Email OTP authentication. ***',
+                `User IP Address: ${userIP} | Location: ${userLocation}`,
                 'This is a system-generated electronic agreement executed via indexneeti.com and is legally valid under the Information Technology Act, 2000.',
                 `Document ID: IN-${Date.now()}`
             ];
@@ -734,6 +814,12 @@
         document.getElementById('mainForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
+            // CHECK OTP BEFORE SUBMIT
+            if (!isOtpVerified) {
+                alert('You must verify your email with the OTP before submitting.');
+                return;
+            }
+
             if (signaturePad.isEmpty()) {
                 alert('Please provide your signature in the signature box before submitting.');
                 return;
@@ -748,10 +834,8 @@
 
             try {
                 const pdf = generateAgreementPdf();
-
-                pdf.save('IndexNeeti_Agreement.pdf');
-
                 const pdfDataUri = pdf.output('datauristring');
+                
                 const payload = {
                     clientName: document.getElementById('clientName').value,
                     clientEmail: document.getElementById('clientEmail').value,
