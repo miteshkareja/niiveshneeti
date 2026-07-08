@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog | IndexNeeti</title>
+    <meta name="description" content="Read market education articles, research-based trading insights, and structured learning notes from IndexNeeti." />
+
+    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="../favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --color-bg: #f8fafc;
+            --color-surface: #ffffff;
+            --color-border: #e2e8f0;
+            --color-text: #0f172a;
+            --color-muted: #64748b;
+            --color-primary: #059669;
+            --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.08);
+            --font-body: 'Satoshi', system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-link {
+            color: #334155;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #059669, #0891b2);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+        }
+
+        .footer-link {
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: #059669;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            background: #ecfdf5;
+            color: #166534;
+            border: 1px solid #d1fae5;
+            padding: 8px 14px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .hero-heading { font-size: 2rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-5 md:px-6 h-[78px] flex items-center justify-between">
+            <a href="../index.html" class="flex items-center gap-3">
+                <img
+                    src="../niiveshlogo.png"
+                    alt="IndexNeeti Logo"
+                    class="h-12 md:h-14 w-auto"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/220x72/f8fafc/0f172a?text=INDEXNEETI';"
+                />
+            </a>
+
+            <nav class="desktop-nav flex items-center gap-8">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../about_us/index.html" class="nav-link">About Us</a>
+                <a href="../Disclosure.html" class="nav-link">Disclosure</a>
+                <a href="../contact/" class="nav-link">Contact</a>
+                <a href="../Complaints.html" class="nav-link">Complaints</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="py-14 md:py-16">
+        <div class="max-w-7xl mx-auto px-5 md:px-6">
+            <div class="card p-8 md:p-10 mb-8">
+                <span class="tag">Market Learning Notes</span>
+
+                <h1 class="hero-heading" style="font-size: 3rem; font-weight: 900; color: #0f172a; line-height: 1.1; margin-top: 16px; margin-bottom: 14px;">
+                    IndexNeeti Blog
+                </h1>
+
+                <p style="font-size: 1rem; color: #64748b; max-width: 860px; line-height: 1.9;">
+                    Explore practical articles on trading discipline, market research, risk management, and structured decision-making for traders and investors.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <article class="card p-8">
+                    <div class="text-sm font-extrabold text-emerald-700 mb-3">Research • Trading Education</div>
+
+                    <h2 style="font-size: 1.5rem; font-weight: 900; color: #0f172a; line-height: 1.3; margin-bottom: 12px;">
+                        How Research Analysts Help Traders Make Better Decisions
+                    </h2>
+
+                    <p style="font-size: 0.97rem; color: #64748b; line-height: 1.9; margin-bottom: 20px;">
+                        Learn how structured market research, technical analysis, and risk management help traders make more disciplined and informed decisions.
+                    </p>
+
+                    <a href="./how-research-analysts-help-traders-make-better-decisions/" class="btn-primary">
+                        Read Article
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-10">
+        <div class="max-w-7xl mx-auto px-5 md:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <img
+                        src="../niiveshlogo.png"
+                        alt="IndexNeeti"
+                        class="h-11 w-auto mb-4"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/220x72/f8fafc/0f172a?text=INDEXNEETI';"
+                    />
+                    <p style="font-size: 13px; color: #64748b; line-height: 1.8;">
+                        IndexNeeti is a research-led platform focused on disciplined market understanding and risk-aware communication.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #0f172a; margin-bottom: 12px;">Legal Pages</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+                        <li><a href="../Disclaimer.html" class="footer-link">Disclaimer</a></li>
+                        <li><a href="../Disclosure.html" class="footer-link">Disclosure</a></li>
+                        <li><a href="../Privacy_Policy.html" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="../Terms_and_Condition.html" class="footer-link">Terms and Condition</a></li>
+                        <li><a href="../Grievance_Redressal.html" class="footer-link">Grievance Redressal</a></li>
+                        <li><a href="../Investor_Charter.html" class="footer-link">Investor Charter</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #0f172a; margin-bottom: 12px;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
+                        <li><a href="../index.html" class="footer-link">Home</a></li>
+                        <li><a href="../about_us/index.html" class="footer-link">About Us</a></li>
+                        <li><a href="../contact/" class="footer-link">Contact Us</a></li>
+                        <li><a href="../Complaints.html" class="footer-link">Complaints</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid #e2e8f0; margin-top: 24px; padding-top: 18px; text-align: center; font-size: 12px; color: #94a3b8;">
+                IndexNeeti ©2026 All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
