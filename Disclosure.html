@@ -1,1 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disclosure | IndexNeeti</title>
+    <meta name="description" content="Disclosure document for IndexNeeti, SEBI Registered Research Analyst." />
 
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --color-bg: #f7f6f2;
+            --color-surface: #ffffff;
+            --color-border: #e2e8f0;
+            --color-text: #0f172a;
+            --color-muted: #64748b;
+            --color-primary: #059669;
+            --color-blue: #1d4ed8;
+            --color-violet: #7c3aed;
+            --font-body: 'Satoshi', system-ui, sans-serif;
+            --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 24px 70px rgba(15, 23, 42, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: #e5e7eb; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 6px; }
+
+        .card {
+            background: #fff;
+            border: 1px solid rgba(15, 23, 42, 0.07);
+            border-radius: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-link {
+            color: #334155;
+            font-weight: 700;
+            font-size: 0.94rem;
+            transition: color 0.2s ease;
+            text-decoration: none;
+        }
+        .nav-link:hover { color: var(--color-primary); }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #059669, #0891b2);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.95rem;
+            padding: 14px 28px;
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: 0 10px 26px rgba(5, 150, 105, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(5, 150, 105, 0.35);
+            opacity: 0.98;
+        }
+
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1d4ed8;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 6px;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        .secondary-btn:hover {
+            color: #1e40af;
+            transform: translateX(2px);
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(90px);
+            pointer-events: none;
+            opacity: 0.72;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        .reveal.from-left { transform: translateX(-42px); }
+        .reveal.from-right { transform: translateX(42px); }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        .delay-1 { transition-delay: 0.08s; }
+        .delay-2 { transition-delay: 0.16s; }
+        .delay-3 { transition-delay: 0.24s; }
+        .delay-4 { transition-delay: 0.32s; }
+
+        .disclosure-card,
+        .mini-card,
+        .timeline-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+        .disclosure-card:hover,
+        .mini-card:hover,
+        .timeline-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 24px 54px rgba(15, 23, 42, 0.12);
+            border-color: rgba(5, 150, 105, 0.18);
+        }
+
+        .disclosure-card::before,
+        .mini-card::before,
+        .timeline-card::before {
+            content: "";
+            position: absolute;
+            inset: -120% auto auto -50%;
+            width: 180px;
+            height: 300%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+            transform: rotate(20deg);
+            transition: transform 0.9s ease;
+            pointer-events: none;
+        }
+        .disclosure-card:hover::before,
+        .mini-card:hover::before,
+        .timeline-card:hover::before {
+            transform: translateX(620px) rotate(20deg);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #ecfdf5;
+            color: #166534;
+            border: 1px solid #d1fae5;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .hero-panel {
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-chip {
+            position: absolute;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+            border: 1px solid rgba(15, 23, 42, 0.07);
+            padding: 12px 14px;
+            font-size: 12px;
+            color: #1e293b;
+            white-space: nowrap;
+            z-index: 4;
+            animation: floatSoft 6s ease-in-out infinite;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .pulse-dot::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulseDot 1.5s ease-out infinite;
+        }
+
+        .hero-sheet {
+            width: min(100%, 430px);
+            border-radius: 28px;
+            padding: 24px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(248,250,252,0.95));
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 28px 80px rgba(15, 23, 42, 0.14);
+            position: relative;
+            z-index: 3;
+        }
+
+        .line-meter {
+            width: 100%;
+            height: 10px;
+            border-radius: 999px;
+            background: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .line-meter span {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #1d4ed8, #059669);
+            transform: translateX(-100%);
+            animation: fillBar 2s ease forwards;
+        }
+
+        .section-alt { background: #f8fafc; }
+
+        .footer-link {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-link:hover { color: #059669; }
+
+        @keyframes pulseDot {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+
+        @keyframes fillBar {
+            to { transform: translateX(0%); }
+        }
+
+        @keyframes floatSoft {
+            0%,100% { transform: translateY(0px) rotate(-0.8deg); }
+            50% { transform: translateY(-10px) rotate(0.8deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .floating-chip { display: none; }
+            .hero-panel { min-height: auto; padding-top: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-panel { display: none; }
+            .mobile-menu-panel.open { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-5 md:px-6 h-[80px] flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <img
+                    src="niiveshlogo.png"
+                    alt="Index Neeti Logo"
+                    class="h-12 md:h-14 w-auto"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/220x72/f8fafc/0f172a?text=INDEX+NEETI';"
+                />
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="about_us/index.html" class="nav-link">About Us</a>
+                <a href="Disclaimer.html" class="nav-link">Disclaimer</a>
+                <a href="https://indexneeti.com/contact" target="_blank" rel="noopener noreferrer" class="cta-btn !py-3 !px-5">Contact Us</a>
+            </nav>
+
+            <button id="menuToggle" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl border border-slate-200 text-slate-700 bg-white shadow-sm">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+
+        <div id="mobileMenu" class="mobile-menu-panel md:hidden border-t border-slate-200 bg-white">
+            <div class="max-w-7xl mx-auto px-5 py-4 flex flex-col gap-4">
+                <a href="index.html#services" class="nav-link mobile-nav-link">Services</a>
+                <a href="index.html#pricing" class="nav-link mobile-nav-link">Pricing</a>
+                <a href="about_us/index.html" class="nav-link mobile-nav-link">About Us</a>
+                <a href="Disclaimer.html" class="nav-link mobile-nav-link">Disclaimer</a>
+                <a href="https://indexneeti.com/contact" target="_blank" rel="noopener noreferrer" class="cta-btn w-full">Contact Us</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative overflow-hidden pt-16 pb-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-emerald-50"></div>
+        <div class="glow-orb -top-24 -right-16 w-[420px] h-[420px] bg-emerald-100"></div>
+        <div class="glow-orb -bottom-16 -left-12 w-[340px] h-[340px] bg-blue-100"></div>
+
+        <div class="max-w-7xl mx-auto px-5 md:px-6 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal from-left">
+                    <div class="hero-badge mb-6">
+                        <span class="pulse-dot"></span>
+                        SEBI Registered Research Analyst Disclosure
+                    </div>
+
+                    <h1 style="font-size:clamp(2.2rem,5vw,4rem);font-weight:900;line-height:1.08;color:#0f172a;margin-bottom:1.1rem;">
+                        Disclosure for <span style="color:#059669;">IndexNeeti</span><br />
+                        <span style="background:linear-gradient(135deg,#1d4ed8 0%,#059669 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                            Transparent research information for clients
+                        </span>
+                    </h1>
+
+                    <p style="font-size:1.03rem;color:#475569;line-height:1.85;max-width:680px;margin-bottom:1.5rem;">
+                        This Disclosure Document is intended to present the key regulatory, operational, and conflict-related information relevant to the research and recommendation services offered under IndexNeeti.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#full-disclosure" class="cta-btn">
+                            Read Full Disclosure
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                        <a href="Disclaimer.html" class="secondary-btn">
+                            View Disclaimer
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-panel reveal from-right">
+                    <div class="floating-chip" style="top:38px;right:10px;">
+                        <div class="flex items-center gap-2">
+                            <span class="pulse-dot"></span>
+                            <div>
+                                <div style="font-weight:800;font-size:12px;">Disclosure Updated</div>
+                                <div style="font-size:10px;color:#64748b;">Research transparency page</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="floating-chip" style="left:-8px;bottom:78px;animation-delay:0.7s;">
+                        <div class="flex items-center gap-2">
+                            <div style="width:30px;height:30px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;color:#1d4ed8;">
+                                <i class="fa-solid fa-file-shield"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight:800;font-size:12px;">RA Registration</div>
+                                <div style="font-size:10px;color:#64748b;">INH000016533</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-sheet">
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px;">
+                            <div>
+                                <div style="font-size:12px;font-weight:800;color:#059669;letter-spacing:0.14em;text-transform:uppercase;">Disclosure Summary</div>
+                                <h3 style="font-size:1.4rem;font-weight:900;color:#0f172a;margin-top:8px;">Key compliance snapshot</h3>
+                            </div>
+                            <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#ecfdf5,#dbeafe);display:flex;align-items:center;justify-content:center;color:#059669;font-size:18px;">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="card mini-card p-5 !rounded-2xl">
+                                <div style="font-weight:900;color:#0f172a;margin-bottom:8px;">Research Entity</div>
+                                <p style="font-size:0.93rem;color:#64748b;line-height:1.75;margin-bottom:12px;">
+                                    Amit Kori, SEBI Registered Research Analyst, operating under the IndexNeeti brand.
+                                </p>
+                                <div class="line-meter"><span style="width:86%;"></span></div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="card mini-card p-5 !rounded-2xl">
+                                    <div style="font-weight:900;color:#0f172a;margin-bottom:6px;">Registration No.</div>
+                                    <p style="font-size:0.9rem;color:#64748b;line-height:1.7;">
+                                        INH000016533
+                                    </p>
+                                </div>
+
+                                <div class="card mini-card p-5 !rounded-2xl">
+                                    <div style="font-weight:900;color:#0f172a;margin-bottom:6px;">Registration Date</div>
+                                    <p style="font-size:0.9rem;color:#64748b;line-height:1.7;">
+                                        June 21, 2024
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="full-disclosure" class="py-24">
+        <div class="max-w-6xl mx-auto px-5 md:px-6">
+            <div class="card disclosure-card p-8 md:p-10 reveal">
+                <div class="space-y-10">
+
+                    <div>
+                        <div style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.14em;color:#059669;margin-bottom:8px;">Opening Statement</div>
+                        <h2 style="font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;color:#0f172a;margin-bottom:14px;">Disclosure Document</h2>
+                        <p style="font-size:0.98rem;color:#64748b;line-height:1.85;">
+                            SEBI Registered Research Analyst<br />
+                            Registration No.: INH000016533
+                        </p>
+                        <p style="font-size:0.98rem;color:#64748b;line-height:1.85;margin-top:12px;">
+                            This Disclosure Document has been compiled in accordance with the SEBI (Research Analyst) Regulations, 2014. The purpose of this document is to provide essential details regarding research and recommendation services, enabling potential and existing clients to make well-informed decisions before engaging in such services.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-weight:900;font-size:1.18rem;color:#0f172a;margin-bottom:12px;">About the Research Analyst</h3>
+                        <p style="font-size:0.97rem;color:#475569;line-height:1.85;">
+                            For the purpose of this Disclosure Document, the term “Research Entity” refers to Amit Kori, who is the registered Research Analyst.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-weight:900;font-size:1.18rem;color:#0f172a;margin-bottom:12px;">Background & Business Overview</h3>
+                        <p style="font-size:0.97rem;color:#475569;line-height:1.85;">
+                            The Research Entity is registered with SEBI as a Research Analyst under Registration No. INH000016533. The registration was granted on June 21, 2024, and the entity specializes in providing research and recommendations service.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-weight:900;font-size:1.18rem;color:#0f172a;margin-bottom:12px;">Disciplinary History</h3>
+                        <p style="font-size:0.97rem;color:#475569;line-height:1.85;">
+                            There are no pending material litigations or legal proceedings, findings of inspections or investigations for which action has been taken or initiated by any regulatory authority against the Research Entity, Research Analyst, or its associates or relatives.
+                        </p>
+                        <p style="font-size:0.97rem;color:#475569;line-height:1.85;margin-top:10px;">
+                            The Research Entity has no associates.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-weight:900;font-size:1.18rem;color:#0f172a;margin-bottom:16px;">Disclosures Regarding Research & Recommendation Services</h3>
+                        <div class="space-y-4 text-[0.97rem] text-slate-600 leading-8">
+                            <p>1. The Research Analyst, the Research Entity, or any of its associates or relatives may hold a financial interest or own 1% or more of the securities recommended in their personal portfolio at the end of the month prior to the release of a research report or public recommendation. Relevant disclosures will be provided at the time of advisory.</p>
+
+                            <p>2. There are no actual or potential conflicts of interest arising from any connection between the Research Entity, Research Analyst, or their associates/relatives and any issuer of securities. If any conflict arises, it will be disclosed to clients promptly.</p>
+
+                            <p>3. The Research Entity, Research Analyst, or their associates/relatives do not have any affiliation or association with the issuers of the recommended securities or financial products.</p>
+
+                            <p>4. The Research Analyst, their associates, or their relatives have not received any form of remuneration or compensation from issuers of the recommended securities.</p>
+
+                            <p>5. The Research Entity, Research Analyst, or associates have not received any compensation from the subject company.</p>
+
+                            <p>6. The Research Entity has not participated in managing or co-managing any public offering of the subject company within the past year.</p>
+
+                            <p>7. No compensation has been received for research banking, merchant banking, or brokerage services from the subject company.</p>
+
+                            <p>8. No compensation has been received for any non-research banking or brokerage-related services from the subject company.</p>
+
+                            <p>9. The Research Entity, Research Analyst, or associates have not been compensated by third parties for producing research reports or providing research recommendations.</p>
+
+                            <p>10. The subject company has not been a client of the Research Entity, Research Analyst, or its associates within the 12 months preceding the publication of the research report.</p>
+
+                            <p>11. The Research Analyst or associates have never held any position such as officer, director, or employee in the subject company.</p>
+
+                            <p>12. The Research Analyst has not been engaged in market-making activities for the subject company.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="card mini-card p-6 !rounded-2xl">
+                            <div style="width:54px;height:54px;border-radius:16px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">
+                                <i class="fa-solid fa-building-shield"></i>
+                            </div>
+                            <h4 style="font-weight:900;color:#0f172a;margin-bottom:8px;">Additional Profile Notes</h4>
+                            <div class="space-y-2 text-[0.95rem] text-slate-600">
+                                <p><strong class="text-slate-900">Brand / Trade Name:</strong> IndexNeeti</p>
+                                <p><strong class="text-slate-900">BSE Enlistment No.:</strong> 6195</p>
+                                <p><strong class="text-slate-900">Membership of SEBI recognized supervisory body:</strong> Not applicable</p>
+                            </div>
+                        </div>
+
+                        <div class="card mini-card p-6 !rounded-2xl">
+                            <div style="width:54px;height:54px;border-radius:16px;background:#ede9fe;color:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                            <h4 style="font-weight:900;color:#0f172a;margin-bottom:8px;">General Operational Disclosure</h4>
+                            <p style="font-size:0.95rem;color:#64748b;line-height:1.8;">
+                                No Artificial Intelligence tools are presently utilised in the preparation, generation, analysis, or dissemination of research reports, recommendations, or related research services. Any future adoption of such tools may be disclosed in accordance with applicable requirements.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-weight:900;font-size:1.18rem;color:#0f172a;margin-bottom:12px;">General Disclosure</h3>
+                        <div class="space-y-3 text-[0.97rem] text-slate-600 leading-8">
+                            <p>1. The Research Analyst has not served as an officer, director, or employee of the subject company.</p>
+                            <p>2. The Research Analyst has not been engaged in market making activity for the subject company.</p>
+                            <p>3. Investments in securities market are subject to market risks. Read all the related documents carefully before investing.</p>
+                            <p>4. Registration granted by SEBI, membership of a SEBI recognized supervisory body if any, and certification from NISM in no way guarantee performance of the intermediary or provide any assurance of returns to investors.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 section-alt">
+        <div class="max-w-7xl mx-auto px-5 md:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card disclosure-card p-8 reveal from-left">
+                    <div class="inline-flex items-center gap-2 rounded-full bg-emerald-50 text-xs font-extrabold text-emerald-800 px-4 py-2 mb-5 border border-emerald-100">
+                        <i class="fa-solid fa-address-card"></i>
+                        Research Analyst Identity
+                    </div>
+                    <div class="space-y-3 text-[0.96rem] text-slate-600">
+                        <p><span class="font-extrabold text-slate-900">Registered Name:</span> Amit Kori</p>
+                        <p><span class="font-extrabold text-slate-900">Brand Name:</span> IndexNeeti</p>
+                        <p><span class="font-extrabold text-slate-900">SEBI Registration No.:</span> INH000016533</p>
+                        <p><span class="font-extrabold text-slate-900">BSE Enlistment No.:</span> 6195</p>
+                    </div>
+                </div>
+
+                <div class="card disclosure-card p-8 reveal from-right">
+                    <div class="inline-flex items-center gap-2 rounded-full bg-blue-50 text-xs font-extrabold text-blue-800 px-4 py-2 mb-5 border border-blue-100">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Contact / Grievance Block
+                    </div>
+                    <div class="space-y-3 text-[0.96rem] text-slate-600">
+                        <p><span class="font-extrabold text-slate-900">Grievance Officer:</span> Amit Kori</p>
+                        <p><span class="font-extrabold text-slate-900">Contact No.:</span> 9137932216</p>
+                        <p><span class="font-extrabold text-slate-900">Email ID:</span> amitkkori@gmail.com</p>
+                        <p style="font-size:0.92rem;color:#64748b;line-height:1.8;margin-top:8px;">
+                            Update the above contact details if your latest compliance record uses a different official support number or email.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white pt-16 pb-8 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-5 md:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mb-12">
+                <div>
+                    <img
+                        src="niiveshlogo.png"
+                        alt="Index Neeti"
+                        class="h-12 w-auto mb-5"
+                        onerror="this.onerror=null; this.src='https://via.placeholder.com/220x72/f8fafc/0f172a?text=INDEX+NEETI';"
+                    />
+                    <p style="font-size:13px;color:#64748b;line-height:1.8;">
+                        Research-led index market communication focused on structure, risk awareness, and disciplined learning.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 style="font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:14px;">Quick Links</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;">
+                        <li><a class="footer-link" href="index.html">Home</a></li>
+                        <li><a class="footer-link" href="about_us/index.html">About Us</a></li>
+                        <li><a class="footer-link" href="Disclaimer.html">Disclaimer</a></li>
+                        <li><a class="footer-link" href="agreement.html">User Consent</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:14px;">Legal Pages</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;">
+                        <li><a class="footer-link" href="Disclaimer.html">Disclaimer</a></li>
+                        <li><a class="footer-link" href="Disclosure.html">Disclosure</a></li>
+                        <li><a class="footer-link" href="Terms_and_Condition.html">Terms & Condition</a></li>
+                        <li><a class="footer-link" href="Privacy_Policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:#0f172a;margin-bottom:14px;">Research Identity</h4>
+                    <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:#64748b;">
+                        <li>IndexNeeti</li>
+                        <li>SEBI Registered Research Analyst</li>
+                        <li>Registration No.: INH000016533</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align:center;font-size:12px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:20px;">
+                IndexNeeti ©2026 All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        menuToggle?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            const icon = menuToggle.querySelector('i');
+            if (mobileMenu.classList.contains('open')) {
+                icon.className = 'fa-solid fa-xmark text-lg';
+            } else {
+                icon.className = 'fa-solid fa-bars text-lg';
+            }
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                const icon = menuToggle.querySelector('i');
+                icon.className = 'fa-solid fa-bars text-lg';
+            });
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+</html>
