@@ -511,6 +511,38 @@
                 display: block;
             }
         }
+        
+        /* NEW: RAZORPAY INVISIBLE OVERLAY STYLES */
+        .rzp-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        
+        .rzp-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            opacity: 0.001; /* Invisible but clickable */
+            cursor: pointer;
+        }
+
+        .rzp-overlay form,
+        .rzp-overlay .razorpay-payment-button {
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            cursor: pointer !important;
+            outline: none !important;
+            background: transparent !important;
+            border: none !important;
+            display: block !important;
+        }
     </style>
     <base target="_blank">
 </head>
@@ -859,7 +891,7 @@
         </div>
     </section>
 
-    <!-- PRICING SECTION -->
+    <!-- PRICING SECTION (UPDATED FOR CLICKS) -->
     <section id="pricing" class="py-24 section-alt">
         <div class="max-w-7xl mx-auto px-5 md:px-6">
             <div class="text-center mb-14 reveal">
@@ -888,13 +920,17 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Custom Button -->
-                    <button type="button" onclick="payPlan('rzp-form-monthly')" class="cta-btn w-full">
-                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                    <!-- Hidden Razorpay Form -->
-                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
-                        <form id="rzp-form-monthly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THIjst1YLkzbNz" async> </script> </form>
+                    
+                    <!-- NEW: Button Overlay Wrapper -->
+                    <div class="rzp-wrapper">
+                        <!-- Visual Button -->
+                        <div class="cta-btn w-full pointer-events-none">
+                            Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+                        <!-- Invisible Razorpay Button -->
+                        <div class="rzp-overlay">
+                            <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THIjst1YLkzbNz" async> </script> </form>
+                        </div>
                     </div>
                 </div>
 
@@ -917,13 +953,17 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Custom Button -->
-                    <button type="button" onclick="payPlan('rzp-form-quarterly')" class="cta-btn w-full">
-                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                    <!-- Hidden Razorpay Form -->
-                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
-                        <form id="rzp-form-quarterly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ5q8f9uCvNes" async> </script> </form>
+                    
+                    <!-- NEW: Button Overlay Wrapper -->
+                    <div class="rzp-wrapper">
+                        <!-- Visual Button -->
+                        <div class="cta-btn w-full pointer-events-none">
+                            Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+                        <!-- Invisible Razorpay Button -->
+                        <div class="rzp-overlay">
+                            <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ5q8f9uCvNes" async> </script> </form>
+                        </div>
                     </div>
                 </div>
 
@@ -943,13 +983,17 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Custom Button -->
-                    <button type="button" onclick="payPlan('rzp-form-halfyearly')" class="cta-btn w-full">
-                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                    <!-- Hidden Razorpay Form -->
-                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
-                        <form id="rzp-form-halfyearly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ7syLjL63iST" async> </script> </form>
+                    
+                    <!-- NEW: Button Overlay Wrapper -->
+                    <div class="rzp-wrapper">
+                        <!-- Visual Button -->
+                        <div class="cta-btn w-full pointer-events-none">
+                            Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+                        <!-- Invisible Razorpay Button -->
+                        <div class="rzp-overlay">
+                            <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ7syLjL63iST" async> </script> </form>
+                        </div>
                     </div>
                 </div>
 
@@ -969,13 +1013,17 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Custom Button -->
-                    <button type="button" onclick="payPlan('rzp-form-yearly')" class="cta-btn w-full">
-                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
-                    <!-- Hidden Razorpay Form -->
-                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
-                        <form id="rzp-form-yearly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ9rTdF0a2kGD" async> </script> </form>
+                    
+                    <!-- NEW: Button Overlay Wrapper -->
+                    <div class="rzp-wrapper">
+                        <!-- Visual Button -->
+                        <div class="cta-btn w-full pointer-events-none">
+                            Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+                        <!-- Invisible Razorpay Button -->
+                        <div class="rzp-overlay">
+                            <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ9rTdF0a2kGD" async> </script> </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1220,22 +1268,6 @@
     </footer>
 
     <script>
-        // Custom Razorpay Trigger Function (UPDATED)
-        function payPlan(formId) {
-            const form = document.getElementById(formId);
-            if (!form) return;
-            
-            // Razorpay normally generates a button with the class 'razorpay-payment-button'
-            const btn = form.querySelector('.razorpay-payment-button') || form.querySelector('button') || form.querySelector('input[type="submit"]');
-            
-            if (btn) {
-                btn.click();
-            } else {
-                // If clicked before the Razorpay script finishes loading
-                alert('Payment system is securely loading. Please wait a second and try again.');
-            }
-        }
-
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
