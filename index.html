@@ -102,6 +102,8 @@
             text-decoration: none;
             box-shadow: 0 10px 26px rgba(5, 150, 105, 0.25);
             transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            border: none;
+            cursor: pointer;
         }
         .cta-btn:hover {
             transform: translateY(-2px);
@@ -886,8 +888,14 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Razorpay Monthly Button -->
-                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THIjst1YLkzbNz" async> </script> </form>
+                    <!-- Custom Button -->
+                    <button type="button" onclick="payPlan('rzp-form-monthly')" class="cta-btn w-full">
+                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
+                    <!-- Hidden Razorpay Form -->
+                    <div style="display:none;">
+                        <form id="rzp-form-monthly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THIjst1YLkzbNz" async> </script> </form>
+                    </div>
                 </div>
 
                 <!-- Quarterly Plan -->
@@ -909,8 +917,14 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Razorpay Quarterly Button -->
-                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ5q8f9uCvNes" async> </script> </form>
+                    <!-- Custom Button -->
+                    <button type="button" onclick="payPlan('rzp-form-quarterly')" class="cta-btn w-full">
+                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
+                    <!-- Hidden Razorpay Form -->
+                    <div style="display:none;">
+                        <form id="rzp-form-quarterly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ5q8f9uCvNes" async> </script> </form>
+                    </div>
                 </div>
 
                 <!-- Half Yearly Plan -->
@@ -929,8 +943,14 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Razorpay Half Yearly Button -->
-                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ7syLjL63iST" async> </script> </form>
+                    <!-- Custom Button -->
+                    <button type="button" onclick="payPlan('rzp-form-halfyearly')" class="cta-btn w-full">
+                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
+                    <!-- Hidden Razorpay Form -->
+                    <div style="display:none;">
+                        <form id="rzp-form-halfyearly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ7syLjL63iST" async> </script> </form>
+                    </div>
                 </div>
 
                 <!-- Yearly Plan -->
@@ -949,8 +969,14 @@
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Priority Dedicated Support</li>
                         <li><i class="fa-solid fa-check text-emerald-600 mr-2"></i>Trading Psychology Insights</li>
                     </ul>
-                    <!-- Razorpay Yearly Button -->
-                    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ9rTdF0a2kGD" async> </script> </form>
+                    <!-- Custom Button -->
+                    <button type="button" onclick="payPlan('rzp-form-yearly')" class="cta-btn w-full">
+                        Join Us <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
+                    <!-- Hidden Razorpay Form -->
+                    <div style="display:none;">
+                        <form id="rzp-form-yearly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ9rTdF0a2kGD" async> </script> </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1194,6 +1220,29 @@
     </footer>
 
     <script>
+        // Custom Razorpay Trigger Function
+        function payPlan(formId) {
+            const form = document.getElementById(formId);
+            if (!form) return;
+            const btn = form.querySelector('button, .razorpay-payment-button, input[type="submit"]');
+            if (btn) {
+                btn.click();
+            } else {
+                let attempts = 0;
+                const interval = setInterval(() => {
+                    attempts++;
+                    const asyncBtn = form.querySelector('button, .razorpay-payment-button, input[type="submit"]');
+                    if (asyncBtn) {
+                        clearInterval(interval);
+                        asyncBtn.click();
+                    } else if (attempts > 30) {
+                        clearInterval(interval);
+                        alert('Payment portal is loading. Please click again in a moment.');
+                    }
+                }, 100);
+            }
+        }
+
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
