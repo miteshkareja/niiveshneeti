@@ -893,7 +893,7 @@
                         Join Us <i class="fa-solid fa-arrow-right-long"></i>
                     </button>
                     <!-- Hidden Razorpay Form -->
-                    <div style="display:none;">
+                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
                         <form id="rzp-form-monthly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THIjst1YLkzbNz" async> </script> </form>
                     </div>
                 </div>
@@ -922,7 +922,7 @@
                         Join Us <i class="fa-solid fa-arrow-right-long"></i>
                     </button>
                     <!-- Hidden Razorpay Form -->
-                    <div style="display:none;">
+                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
                         <form id="rzp-form-quarterly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ5q8f9uCvNes" async> </script> </form>
                     </div>
                 </div>
@@ -948,7 +948,7 @@
                         Join Us <i class="fa-solid fa-arrow-right-long"></i>
                     </button>
                     <!-- Hidden Razorpay Form -->
-                    <div style="display:none;">
+                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
                         <form id="rzp-form-halfyearly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ7syLjL63iST" async> </script> </form>
                     </div>
                 </div>
@@ -974,7 +974,7 @@
                         Join Us <i class="fa-solid fa-arrow-right-long"></i>
                     </button>
                     <!-- Hidden Razorpay Form -->
-                    <div style="display:none;">
+                    <div style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0;">
                         <form id="rzp-form-yearly"><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_THJ9rTdF0a2kGD" async> </script> </form>
                     </div>
                 </div>
@@ -1220,26 +1220,19 @@
     </footer>
 
     <script>
-        // Custom Razorpay Trigger Function
+        // Custom Razorpay Trigger Function (UPDATED)
         function payPlan(formId) {
             const form = document.getElementById(formId);
             if (!form) return;
-            const btn = form.querySelector('button, .razorpay-payment-button, input[type="submit"]');
+            
+            // Razorpay normally generates a button with the class 'razorpay-payment-button'
+            const btn = form.querySelector('.razorpay-payment-button') || form.querySelector('button') || form.querySelector('input[type="submit"]');
+            
             if (btn) {
                 btn.click();
             } else {
-                let attempts = 0;
-                const interval = setInterval(() => {
-                    attempts++;
-                    const asyncBtn = form.querySelector('button, .razorpay-payment-button, input[type="submit"]');
-                    if (asyncBtn) {
-                        clearInterval(interval);
-                        asyncBtn.click();
-                    } else if (attempts > 30) {
-                        clearInterval(interval);
-                        alert('Payment portal is loading. Please click again in a moment.');
-                    }
-                }, 100);
+                // If clicked before the Razorpay script finishes loading
+                alert('Payment system is securely loading. Please wait a second and try again.');
             }
         }
 
